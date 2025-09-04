@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: hsr-damage-calculator-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: hsr_calculator
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: hsr-damage-calculator-app
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/hsr_calculator
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+    ports:
+      - "8090:8090"
+
+volumes:
+  mysql_data:

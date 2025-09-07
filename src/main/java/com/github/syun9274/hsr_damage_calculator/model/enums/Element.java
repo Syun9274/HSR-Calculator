@@ -13,17 +13,14 @@ public enum Element {
     QUANTUM("양자", 0.5, 1.5),
     IMAGINARY("허수", 0.5);
 
-    // 한국어 설명
     final String krDescription;
-    // 격파 계수
-    double brokenRate;
-    // 지속 피해 계수
-    double damageRate;
+    final double brokenRate; // 격파 계수
+    double damageRate; // 지속 피해 계수
 
     /**
      * 지속 피해 고정 계수가 없는 속성
      * -> 물리, 허수
-     * @param krDescription
+     * @param krDescription 한국어 번역
      * @param brokenRate 격파 계수
      */
     Element(String krDescription, double brokenRate) {
@@ -34,7 +31,7 @@ public enum Element {
     /**
      * 지속 피해 고정 계수가 있는 속성
      * -> 화염, 얼음, 번개, 바람, 양자
-     * @param krDescription
+     * @param krDescription 한국어 번역
      * @param brokenRate 격파 계수
      * @param damageRate 지속 피해 계수
      */

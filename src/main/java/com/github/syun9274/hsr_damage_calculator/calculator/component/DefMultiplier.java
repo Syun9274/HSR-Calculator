@@ -9,7 +9,7 @@ public class DefMultiplier {
     DEF Multiplier scales with the level difference between characters, similar to Genshin Impact.
     The higher the attacker level compared to defender level, the greater the DEF Multiplier.
 
-    The DEF related equations for a normal defender are:
+    The DEF-related equations for a normal defender are:
     DEF Multiplier = 100% - [DEF / (DEF + 200 + 10 * Attacker Level)]
 
     To find the DEF, you need to use another formula:

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class BaseDmg {
 
     /*
-    To find the Base DMG value you need to use another formula:
+    To find the Base DMG value, you need to use another formula:
     Base DMG = (Skill Multiplier + Extra Multiplier) * Scaling Attribute + Extra DMG
 
     Where:

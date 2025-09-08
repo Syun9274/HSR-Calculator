@@ -1,11 +1,15 @@
 package com.github.syun9274.hsr_damage_calculator.calculator.component;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class DefMultiplier {
 
     /*
+    방어력 보정 요소 (적 방어력)
+
     DEF Multiplier scales with the level difference between characters, similar to Genshin Impact.
     The higher the attacker level compared to defender level, the greater the DEF Multiplier.
 

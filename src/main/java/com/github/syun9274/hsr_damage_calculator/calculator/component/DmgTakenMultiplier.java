@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 public class DmgTakenMultiplier {
 
     /*
+    받는 피해 증가 요소 (ex. 삼포 궁극기 지딜피해 증가)
+
     This portion of the equation functions differently from Genshin Impact,
     where it would normally be a part of DMG%. In Honkai: Star Rail,
     the DMG Taken Multiplier operates by the following equation:

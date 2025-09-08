@@ -14,6 +14,7 @@ public class CritMultiplier {
     3. 평균 기대값 데미지
      */
 
-    double defaultCritRate = 0.05; // 5%
-    double defaultCritDamage = 0.5; // 50%
+    public double getCritMultiplier(double critRate, double critDamage) {
+        return 1 + (critRate * critDamage);
+    }
 }

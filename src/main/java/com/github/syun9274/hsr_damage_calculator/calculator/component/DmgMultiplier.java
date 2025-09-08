@@ -1,11 +1,18 @@
 package com.github.syun9274.hsr_damage_calculator.calculator.component;
 
+import com.github.syun9274.hsr_damage_calculator.model.Buff;
+import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
+import com.github.syun9274.hsr_damage_calculator.util.MathUtil;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class DmgMultiplier {
 
     /*
+    데미지 증가 요소 (피해 증가 구체, 광추 옵션 등)
+
     All DMG% is added together and grouped into one place in the DMG equation.
 
     The equation is as follows:
@@ -17,4 +24,16 @@ public class DmgMultiplier {
     her total DMG% multiplier is 158.9% against a Burning or Bleeding enemy,
     but only 138.9% against a non-Burning or Bleeding enemy.
      */
+
+    /**
+     * 피해 증가 buff 합연산
+     *
+     * @param buffs 적용받고 있는 buff list
+     * @return 피해 증가 buff 합연산
+     */
+    public double getDmgMultiplier(List<Buff> buffs) {
+        return 1 + MathUtil.sumPercentBuffs(
+                buffs,
+                BuffType.DAMAGE_BOOST);
+    }
 }

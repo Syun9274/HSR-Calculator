@@ -19,18 +19,11 @@ public class StatCalculator {
                                    BuffType flatType,
                                    BuffType percentType) {
         // 퍼센트 버프 합계
-        double percentBuffSum = buffs.stream()
-                .filter(buff -> buff.getBuffType() == percentType)
-                .mapToDouble(Buff::getBuffValue)
-                .sum();
-
+        double percentBuffSum = MathUtil.sumPercentBuffs(buffs, percentType);
         double afterPercentBuffSum = baseStat * (1 + percentBuffSum);
 
         // 고정 버프 합계
-        int flatBuffSum = buffs.stream()
-                .filter(buff -> buff.getBuffType() == flatType)
-                .mapToInt(buff -> (int) buff.getBuffValue())
-                .sum();
+        int flatBuffSum = MathUtil.sumFlatBuffs(buffs, flatType);
 
         log.info("buffAtk: {}", baseStat * percentBuffSum + flatBuffSum);
 

@@ -2,10 +2,14 @@ package com.github.syun9274.hsr_damage_calculator.calculator.formula;
 
 public class DamageFormula {
 
+    // 크리티컬 기본값
+    public static final double DEFAULT_CRIT_RATE = 0.05; // 5%
+    public static final double DEFAULT_CRIT_DMG = 1.5; // 50%
+
     // 저항 기본값
     public static final double WEAKNESS_RESISTANCE = 0.0; // 약점 0%
     public static final double NORMAL_RESISTANCE = 0.2; // 일반 20%
-    public static final double STRONG_RESISTANCE = 0.4; // 정예 40%
+    public static final double STRONG_RESISTANCE = 0.4; // 특정 원소 저항 40%
 
     // 저항 한계값
     public static final double MIN_RESISTANCE = -1.0; // -100%

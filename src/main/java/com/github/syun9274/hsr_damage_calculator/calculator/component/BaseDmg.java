@@ -31,12 +31,7 @@ public class BaseDmg {
     public double getBaseDmg(double skillMultiplier,
                              double extraMultiplier,
                              int scalingAttribute,
-                             int extraDmg,
-                             boolean extraMultiplierOn) {
-        if (extraMultiplierOn) {
-            return (skillMultiplier + extraMultiplier) * scalingAttribute + extraDmg;
-        } else {
-            return skillMultiplier * scalingAttribute + extraDmg;
-        }
+                             int extraDmg) {
+        return (skillMultiplier + extraMultiplier) * scalingAttribute + extraDmg;
     }
 }

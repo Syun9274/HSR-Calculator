@@ -27,7 +27,7 @@ public class MathUtil {
      * @return 정수 변환 데미지
      */
     public static int toGameDamageInt(double value) {
-        return (int) Math.ceil(value);
+        return (int) Math.round(value);
     }
 
     /**
@@ -40,7 +40,11 @@ public class MathUtil {
     }
 
     /**
-     * 여러 타입의 고정 버프 합계 계산
+     * 지정된 버프 타입들로 필터링된 버프 목록에서 고정 버프 값 합계 계산
+     *
+     * @param buffs 버프 타입과 값을 포함하는 버프 객체 목록
+     * @param buffTypes 버프를 필터링할 버프 타입 배열
+     * @return 지정된 버프 타입들에 대한 고정 버프 값들의 총합 (정수)
      */
     public static int sumFlatBuffs(List<Buff> buffs, BuffType... buffTypes) {
         return buffs.stream()
@@ -50,7 +54,11 @@ public class MathUtil {
     }
 
     /**
-     * 여러 타입의 퍼센트 버프 합계 계산
+     * 지정된 버프 타입들로 필터링된 버프 목록에서 퍼센트 버프 값 합계 계산
+     *
+     * @param buffs 버프 타입과 값을 포함하는 버프 객체 목록
+     * @param buffTypes 버프를 필터링할 버프 타입 배열
+     * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합 (정수)
      */
     public static double sumPercentBuffs(List<Buff> buffs, BuffType... buffTypes) {
         return buffs.stream()

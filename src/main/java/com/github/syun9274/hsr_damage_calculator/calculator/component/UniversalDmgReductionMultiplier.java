@@ -1,5 +1,6 @@
 package com.github.syun9274.hsr_damage_calculator.calculator.component;
 
+import com.github.syun9274.hsr_damage_calculator.calculator.formula.DamageFormula;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,17 +17,21 @@ public class UniversalDmgReductionMultiplier {
     Note this multiplier stacks multiplicative with other sources.
      */
 
+    public double getUniversalDmgReductionMultiplier(boolean isBroken) {
+        return weaknessMultiplier(isBroken);
+    }
+
     /**
-     * 약점 격파 시 10% 데미지 저항
+     * 강인성이 존재할 경우 10% 데미지 저항
      *
-     * @param isBroken 약점 격파 여부 (격파 시 true)
+     * @param isBroken 격파 여부 (격파 시 true)
      * @return 약점이 격파되지 않았을 경우 10% 저항 -> 0.9 반환
      */
-    public double getUniversalDmgReductionMultiplier(boolean isBroken) {
+    private double weaknessMultiplier(boolean isBroken) {
         if (isBroken) {
             return 1;
         } else {
-            return 0.9;
+            return 1 - DamageFormula.TOUGHNESS_DAMAGE_REDUCTION;
         }
     }
 }

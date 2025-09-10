@@ -6,6 +6,9 @@ public class DamageFormula {
     public static final double DEFAULT_CRIT_RATE = 0.05; // 5%
     public static final double DEFAULT_CRIT_DMG = 1.5; // 50%
 
+    // 방어력 한계값
+    public static final double MIN_DEFENSE = 0; // 0
+
     // 저항 기본값
     public static final double WEAKNESS_RESISTANCE = 0.0; // 약점 0%
     public static final double NORMAL_RESISTANCE = 0.2; // 일반 20%

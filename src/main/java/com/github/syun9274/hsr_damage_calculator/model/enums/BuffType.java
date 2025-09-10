@@ -12,13 +12,15 @@ public enum BuffType {
 
     // 가피증 버프
     DAMAGE_BOOST("가하는 피해 증가"),
+    BASIC_ATTACK_DAMAGE_BOOST("일반 공격 피해 증가"),
     SKILL_DAMAGE_BOOST("전투 스킬 피해 증가"),
     ULTIMATE_DAMAGE_BOOST("필살기 피해 증가"),
 
     // 받피증 버프
-    GET_DAMAGE_BOOST("받는 피해 증가"),
+    DAMAGE_TAKEN_INCREASE("받는 피해 증가"),
     DEF_IGNORE("방어 무시"),
-    ELEMENT_RES_IGNORE("속성 저항 관통"),
+    RES_PEN("속성 저항 관통"),
+    WEAKEN("약화"),
     ;
 
     final String krDescription;

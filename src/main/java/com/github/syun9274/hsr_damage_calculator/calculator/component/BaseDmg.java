@@ -18,10 +18,25 @@ public class BaseDmg {
     Extra DMG = this is the flat additional damage that appears on some skills.
      */
 
-    double getBaseDmg(int hp, int atk, int def,
-                      double hpDamageRate,
-                      double atkDamageRate,
-                      double defDamageRate) {
-        return hpDamageRate * hp + atkDamageRate * atk + defDamageRate * def;
+
+    /**
+     * 공격력의 45% + 300의 피해를 가한다. 적이 둔화 상태일 경우 30%을 추가 피해를 가한다.
+     *
+     * @param skillMultiplier  스킬 계수 (0.45)
+     * @param extraMultiplier  특정 조건 시에 추가되는 계수 (0.3)
+     * @param scalingAttribute 메인 스탯 (atk)
+     * @param extraDmg         추가 고정 데미지 (300)
+     * @return Base DMG
+     */
+    public double getBaseDmg(double skillMultiplier,
+                             double extraMultiplier,
+                             int scalingAttribute,
+                             int extraDmg,
+                             boolean extraMultiplierOn) {
+        if (extraMultiplierOn) {
+            return (skillMultiplier + extraMultiplier) * scalingAttribute + extraDmg;
+        } else {
+            return skillMultiplier * scalingAttribute + extraDmg;
+        }
     }
 }

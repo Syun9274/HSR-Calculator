@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Setter
@@ -41,6 +42,24 @@ public class StatCalculator {
 
     public int calculateFinalDef(int baseDef, List<Buff> buffs) {
         return calculateFinalStat(baseDef, buffs, BuffType.DEF_FLAT, BuffType.DEF_PERCENT);
+    }
+
+    /**
+     * 캐릭터의 최종 스탯을 계산합니다. 기본 스탯과 버프 목록을 고려합니다.
+     * 최종 스탯에는 HP, 공격력, 방어력이 포함됩니다.
+     *
+     * @param baseHp  캐릭터의 기본 HP 값
+     * @param baseAtk 캐릭터의 기본 공격력 값
+     * @param baseDef 캐릭터의 기본 방어력 값
+     * @param buffs   캐릭터의 스탯과 관련된 버프 목록
+     * @return "Hp", "Atk", "Def" 키와 계산된 값들을 포함하는 최종 스탯 Map
+     */
+    public Map<String, Integer> calculateFinalStats(int baseHp, int baseAtk, int baseDef, List<Buff> buffs) {
+        return Map.of(
+                "Hp", calculateFinalHp(baseHp, buffs),
+                "Atk", calculateFinalAtk(baseAtk, buffs),
+                "Def", calculateFinalDef(baseDef, buffs)
+        );
     }
 }
 

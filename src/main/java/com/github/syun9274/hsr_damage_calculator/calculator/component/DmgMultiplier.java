@@ -25,15 +25,37 @@ public class DmgMultiplier {
     but only 138.9% against a non-Burning or Bleeding enemy.
      */
 
+    private double getDmgMultiplier(List<Buff> buffs, BuffType specificDamageType) {
+        return 1 + MathUtil.sumPercentBuffs(buffs, BuffType.DAMAGE_BOOST, specificDamageType);
+    }
+
     /**
-     * 피해 증가 buff 합연산
+     * 피해 증가 buff 합연산 (일반 공격)
      *
-     * @param buffs 적용받고 있는 buff list
-     * @return 피해 증가 buff 합연산
+     * @param buffs 적용 중인 buff list
+     * @return 피해 증가 수치 합연산
      */
-    public double getDmgMultiplier(List<Buff> buffs) {
-        return 1 + MathUtil.sumPercentBuffs(
-                buffs,
-                BuffType.DAMAGE_BOOST);
+    public double getBasicAttackDmgMultiplier(List<Buff> buffs) {
+        return getDmgMultiplier(buffs, BuffType.BASIC_ATTACK_DAMAGE_BOOST);
+    }
+
+    /**
+     * 피해 증가 buff 합연산 (전투 스킬)
+     *
+     * @param buffs 적용 중인 buff list
+     * @return 피해 증가 수치 합연산
+     */
+    public double getSkillDmgMultiplier(List<Buff> buffs) {
+        return getDmgMultiplier(buffs, BuffType.SKILL_DAMAGE_BOOST);
+    }
+
+    /**
+     * 피해 증가 buff 합연산 (필살기)
+     *
+     * @param buffs 적용 중인 buff list
+     * @return 피해 증가 수치 합연산
+     */
+    public double getUltimateDmgMultiplier(List<Buff> buffs) {
+        return getDmgMultiplier(buffs, BuffType.ULTIMATE_DAMAGE_BOOST);
     }
 }

@@ -31,8 +31,8 @@ public class ResMultiplier {
     public double getResMultiplier(Character character, Enemy enemy, List<Buff> buffs) {
         double resPercent = calculateResPercent(
                 character.getElement,
-                enemy.getWeakElement,
-                enemy.getResistElement);
+                enemy.getWeaknessElements(),    // List<Element>
+                enemy.getResistanceElements()); // List<Element>
         double resPen = calculateResPen(buffs);
         double res = 1 - (resPercent - resPen);
 
@@ -44,18 +44,20 @@ public class ResMultiplier {
      * 캐릭터 원소에 따른 적의 원소 저항 값을 계산합니다
      * -> 약점 0%, 일반 20%, 저항 40%
      *
-     * @param charElement   캐릭터 원소
-     * @param enemyElement  적 약점 원소
-     * @param resistElement 적 저항 원소
+     * @param charElement        캐릭터 원소
+     * @param weaknessElements   적 약점 원소
+     * @param resistanceElements 적 저항 원소
      * @return 원소 저항 값
      */
-    private double calculateResPercent(Element charElement, Element enemyElement, Element resistElement) {
-        if (charElement == enemyElement) {
-            return DamageFormula.WEAKNESS_RESISTANCE;
-        } else if (charElement == resistElement) {
-            return DamageFormula.STRONG_RESISTANCE;
+    private double calculateResPercent(Element charElement,
+                                       List<Element> weaknessElements,
+                                       List<Element> resistanceElements) {
+        if (weaknessElements.contains(charElement)) {
+            return DamageFormula.WEAKNESS_RESISTANCE;  // 0%
+        } else if (resistanceElements.contains(charElement)) {
+            return DamageFormula.STRONG_RESISTANCE;    // 40%
         } else {
-            return DamageFormula.NORMAL_RESISTANCE;
+            return DamageFormula.NORMAL_RESISTANCE;    // 20%
         }
     }
 

@@ -61,7 +61,7 @@ public class MathUtil {
      *
      * @param buffs     버프 타입과 값을 포함하는 버프 객체 목록
      * @param buffTypes 버프를 필터링할 버프 타입 배열
-     * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합 (정수)
+     * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합
      */
     public static double sumPercentBuffs(List<Buff> buffs, BuffType... buffTypes) {
         return buffs.stream()

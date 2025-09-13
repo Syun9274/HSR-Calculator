@@ -57,7 +57,7 @@ class StatCalculatorTest {
 
         // then
         assertTrue(result >= 1618 && result <= 1622,
-                "Expected result between 1619 - 1621, but was: " + result);
+                "Expected result between 1618 - 1622, but was: " + result);
         // 인게임 표시: 1222 + 398 -> 1621
     }
 
@@ -84,7 +84,7 @@ class StatCalculatorTest {
 
         // then
         assertTrue(result >= 2568 && result <= 2572,
-                "Expected result between 2721 - 2723, but was: " + result);
+                "Expected result between 2568 - 2572, but was: " + result);
         // 인게임 표시: 1222 + 1347 -> 2570
         // 테스트 결과 1222 + 1346.156 -> 2568.2
     }

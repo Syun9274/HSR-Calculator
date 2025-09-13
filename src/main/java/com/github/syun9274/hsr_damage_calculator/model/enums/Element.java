@@ -20,8 +20,9 @@ public enum Element {
     /**
      * 지속 피해 고정 계수가 없는 속성
      * -> 물리, 허수
+     *
      * @param krDescription 한국어 번역
-     * @param brokenRate 격파 계수
+     * @param brokenRate    격파 계수
      */
     Element(String krDescription, double brokenRate) {
         this.krDescription = krDescription;
@@ -31,9 +32,10 @@ public enum Element {
     /**
      * 지속 피해 고정 계수가 있는 속성
      * -> 화염, 얼음, 번개, 바람, 양자
+     *
      * @param krDescription 한국어 번역
-     * @param brokenRate 격파 계수
-     * @param damageRate 지속 피해 계수
+     * @param brokenRate    격파 계수
+     * @param damageRate    지속 피해 계수
      */
     Element(String krDescription, double brokenRate, double damageRate) {
         this.krDescription = krDescription;

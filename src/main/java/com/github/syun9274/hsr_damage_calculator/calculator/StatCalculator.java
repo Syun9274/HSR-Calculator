@@ -14,9 +14,9 @@ import java.util.Map;
 public class StatCalculator {
 
     private double calculateFinalStat(int baseStat,
-                                   List<Buff> buffs,
-                                   BuffType flatType,
-                                   BuffType percentType) {
+                                      List<Buff> buffs,
+                                      BuffType flatType,
+                                      BuffType percentType) {
         // 퍼센트 버프 합계
         double percentBuffSum = MathUtil.sumPercentBuffs(buffs, percentType);
         double afterPercentBuffSum = baseStat * (1 + percentBuffSum);

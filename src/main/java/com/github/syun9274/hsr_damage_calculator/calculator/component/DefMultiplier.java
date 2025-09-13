@@ -51,7 +51,7 @@ public class DefMultiplier {
      * 적의 실제 방어력 계산
      * Base DEF × (1 + DEF% - DEF감소%) + Flat DEF
      *
-     * @param enemy      적 정보
+     * @param enemy 적 정보
      * @param buffs 적 버프 (방어력 증가, 방어력 감소, 방어력 무시)
      * @return 계산된 실제 방어력 (최소값 보장)
      */

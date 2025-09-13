@@ -30,7 +30,7 @@ public class DmgMultiplier {
      * <p>
      * DMG Multiplier = 1 + (속성 피해 증가% + 전체 피해 증가% + 특정 스킬 피해 증가% + ...)
      *
-     * @param buffs 아군이 받는 버프 (가하는 피해 증가)
+     * @param buffs              아군이 받는 버프 (가하는 피해 증가)
      * @param specificDamageType 특정 스킬 타입의 피해 증가 버프
      * @return 피해 증가 배수 (1.0 = 100%, 1.5 = 150%)
      */

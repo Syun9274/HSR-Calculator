@@ -7,10 +7,12 @@ import com.github.syun9274.hsr_damage_calculator.model.Enemy;
 import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_damage_calculator.model.enums.Element;
 import com.github.syun9274.hsr_damage_calculator.util.MathUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Slf4j
 @Component
 public class ResMultiplier {
 
@@ -44,6 +46,7 @@ public class ResMultiplier {
                 enemy.getResistElements());     // List<Element>
         double resPen = calculateResPen(buffs);
         double res = 1 - (resPercent - resPen);
+        log.info("{} = 1 - ({} - {})", res, resPercent, resPen);
 
         // Math.clamp(value, min, max)는 값을 min과 max 사이로 제한해주는 메서드
         return Math.clamp(res, DamageFormula.MIN_RESISTANCE, DamageFormula.MAX_RESISTANCE);

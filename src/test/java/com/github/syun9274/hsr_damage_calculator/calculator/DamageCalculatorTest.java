@@ -42,20 +42,22 @@ class DamageCalculatorTest {
     }
 
     @Test
-    @DisplayName("데미지 계산 공식 검증 - 클라라 선데이 히아킨 사이퍼")
+    @DisplayName("데미지 계산 공식 검증 - 클라라 트리비 선데이 사이퍼")
     void calculateDamage_ManualInput() {
-        // given - 1. 최종 공격력 (모든 버프 적용 완료)
-        int finalAtk = 2322;
+        // given - 1. 최종 스탯 (모든 버프 적용 완료)
+        int baseStats = 1319;
+        int buffStats = 1002;
+        int finalStats = baseStats + buffStats;
 
-        // given - 2. 가하는 피해 증가 버프 합연산 완료 (%)
-        double totalDamageBoost = percentToDecimal(14.4 + 45.0);
+        // given - 2. 캐릭터 자체 가하는 피해 증가 버프
+        double damageBoost = percentToDecimal(14.4);
 
         // given - 3. 캐릭터 레벨, 속성
         int characterLevel = 80;
         Element characterElement = Element.PHYSICAL;
 
         // given - 스킬 계수 정보 추가
-        double skillMultiplier = 1;         // 기본 공격 100%
+        double skillMultiplier = 1;         // 공격력의 100%
         double extraMultiplier = 0.0;       // 조건부 추가 계수 없음
         int extraDamage = 0;
 
@@ -66,16 +68,17 @@ class DamageCalculatorTest {
 
         // given - 5. 기타 아군 버프 목록
         List<Buff> otherBuffs = Arrays.asList(
-                new Buff(BuffType.DEF_REDUCTION, percentToDecimal(8 + 16)),     // 방어력 감소 20%
-                new Buff(BuffType.DAMAGE_TAKEN_INCREASE, percentToDecimal(40))  // 받는 피해 증가 25%
+                new Buff(BuffType.DAMAGE_BOOST, percentToDecimal(95)),
+                new Buff(BuffType.RES_PEN, percentToDecimal(24))
         );
 
         // given - 6. 적이 받고 있는 버프
         List<Buff> enemyBuffs = Arrays.asList(
-
+                new Buff(BuffType.DEF_REDUCTION, percentToDecimal(8 + 16)),     // 방어력 감소
+                new Buff(BuffType.DAMAGE_TAKEN_INCREASE, percentToDecimal(40))  // 받는 피해 증가
         );
 
-        // given - 캐릭터 객체 생성 (최종 공격력 반영)
+        // given - 캐릭터 객체 생성
         Character character = new Character() {
             @Override
             public CharacterSkill getBasicAttack() {
@@ -88,7 +91,7 @@ class DamageCalculatorTest {
         };
         character.setLevel(characterLevel);
         character.setElement(characterElement);
-        character.setBaseAtk(finalAtk);
+        character.setBaseAtk(finalStats);
         character.setScalingAttribute("atk");
 
         // given - 적 객체 생성
@@ -100,7 +103,7 @@ class DamageCalculatorTest {
 
         // given - 캐릭터 버프
         List<Buff> charBuffs = new ArrayList<>();
-        charBuffs.add(new Buff(BuffType.DAMAGE_BOOST, totalDamageBoost));
+        charBuffs.add(new Buff(BuffType.DAMAGE_BOOST, damageBoost));
         charBuffs.add(new Buff(BuffType.BASIC_ATTACK_DAMAGE_BOOST, percentToDecimal(0)));
         charBuffs.addAll(otherBuffs); // 기타 버프 추가
 
@@ -116,18 +119,20 @@ class DamageCalculatorTest {
         int finalDamage = result.get("Final Damage");
 
         // 수동 계산, 예상 값과 비교 (소수점 처리 고려)
-        int expectedMinDamage = 2175; // 예상 최소 데미지
-        int expectedMaxDamage = 2177; // 예상 최대 데미지
+        int expectedMinDamage = 3714; // 예상 최소 데미지
+        int expectedMaxDamage = 3716; // 예상 최대 데미지
 
         assertTrue(finalDamage > 0, "데미지는 0보다 커야 함");
         assertTrue(finalDamage >= expectedMinDamage && finalDamage <= expectedMaxDamage,
                 String.format("Expected damage between %d - %d, but was: %d",
                         expectedMinDamage, expectedMaxDamage, finalDamage));
+        // 계산 결과 3715
+        // 게임 내 결과 3716 (소수점 처리 방식의 차이로 허용 가능 범위)
 
         // 디버깅용 출력
         System.out.println("=== 데미지 계산 결과 ===");
-        System.out.println("최종 공격력: " + finalAtk);
-        System.out.println("피해 증가: " + (totalDamageBoost * 100) + "%");
+        System.out.println("최종 공격력: " + finalStats);
+        System.out.println("피해 증가: " + (damageBoost * 100) + "%");
         System.out.println("캐릭터 속성: " + characterElement);
         System.out.println("적 약점: " + enemyWeakness);
         System.out.println("적 방어력: " + enemyDefense);

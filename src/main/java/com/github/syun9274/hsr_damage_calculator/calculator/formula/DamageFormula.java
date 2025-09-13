@@ -15,8 +15,8 @@ public class DamageFormula {
     public static final double STRONG_RESISTANCE = 0.4; // 특정 원소 저항 40%
 
     // 저항 한계값
-    public static final double MIN_RESISTANCE = -1.0; // -100%
-    public static final double MAX_RESISTANCE = 0.9; // 90%
+    public static final double MIN_RESISTANCE = 0.1; // 최소 10%
+    public static final double MAX_RESISTANCE = 2.0; // 최대 200%
 
     // 강인성 피해 감소
     public static final double TOUGHNESS_DAMAGE_REDUCTION = 0.1; // 10%

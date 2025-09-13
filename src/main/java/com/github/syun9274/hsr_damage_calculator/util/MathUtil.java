@@ -17,7 +17,7 @@ public class MathUtil {
      * @param value 스탯
      * @return 소수점 한자리까지 반올림된 스탯
      */
-    public static double toGameStatInt(double value) {
+    public static double toGameStatDouble(double value) {
         return Math.round(value * 10.0) / 10.0;
     }
 

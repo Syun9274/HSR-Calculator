@@ -24,7 +24,7 @@ public class StatCalculator {
         // 고정 버프 합계
         int flatBuffSum = MathUtil.sumFlatBuffs(buffs, flatType);
 
-        return MathUtil.toGameStatInt(afterPercentBuffSum + flatBuffSum);
+        return MathUtil.toGameStatDouble(afterPercentBuffSum + flatBuffSum);
     }
 
     // 편의 메서드들

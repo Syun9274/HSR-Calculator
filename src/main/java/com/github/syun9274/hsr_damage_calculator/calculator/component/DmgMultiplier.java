@@ -25,6 +25,15 @@ public class DmgMultiplier {
     but only 138.9% against a non-Burning or Bleeding enemy.
      */
 
+    /**
+     * 피해 증가 배수 계산 (공통 로직)
+     * <p>
+     * DMG Multiplier = 1 + (속성 피해 증가% + 전체 피해 증가% + 특정 스킬 피해 증가% + ...)
+     *
+     * @param buffs 아군이 받는 버프 (가하는 피해 증가)
+     * @param specificDamageType 특정 스킬 타입의 피해 증가 버프
+     * @return 피해 증가 배수 (1.0 = 100%, 1.5 = 150%)
+     */
     private double getDmgMultiplier(List<Buff> buffs, BuffType specificDamageType) {
         return 1 + MathUtil.sumPercentBuffs(buffs, BuffType.DAMAGE_BOOST, specificDamageType);
     }

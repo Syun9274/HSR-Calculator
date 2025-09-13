@@ -4,18 +4,16 @@ import com.github.syun9274.hsr_damage_calculator.model.Buff;
 import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_damage_calculator.util.MathUtil;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Setter
 @Component
 public class StatCalculator {
 
-    private int calculateFinalStat(int baseStat,
+    private double calculateFinalStat(int baseStat,
                                    List<Buff> buffs,
                                    BuffType flatType,
                                    BuffType percentType) {
@@ -26,21 +24,19 @@ public class StatCalculator {
         // 고정 버프 합계
         int flatBuffSum = MathUtil.sumFlatBuffs(buffs, flatType);
 
-        log.info("buffAtk: {}", baseStat * percentBuffSum + flatBuffSum);
-
         return MathUtil.toGameStatInt(afterPercentBuffSum + flatBuffSum);
     }
 
     // 편의 메서드들
-    public int calculateFinalHp(int baseHp, List<Buff> buffs) {
+    public double calculateFinalHp(int baseHp, List<Buff> buffs) {
         return calculateFinalStat(baseHp, buffs, BuffType.HP_FLAT, BuffType.HP_PERCENT);
     }
 
-    public int calculateFinalAtk(int baseAtk, List<Buff> buffs) {
+    public double calculateFinalAtk(int baseAtk, List<Buff> buffs) {
         return calculateFinalStat(baseAtk, buffs, BuffType.ATK_FLAT, BuffType.ATK_PERCENT);
     }
 
-    public int calculateFinalDef(int baseDef, List<Buff> buffs) {
+    public double calculateFinalDef(int baseDef, List<Buff> buffs) {
         return calculateFinalStat(baseDef, buffs, BuffType.DEF_FLAT, BuffType.DEF_PERCENT);
     }
 
@@ -54,7 +50,7 @@ public class StatCalculator {
      * @param buffs   캐릭터의 스탯과 관련된 버프 목록
      * @return "Hp", "Atk", "Def" 키와 계산된 값들을 포함하는 최종 스탯 Map
      */
-    public Map<String, Integer> calculateFinalStats(int baseHp, int baseAtk, int baseDef, List<Buff> buffs) {
+    public Map<String, Double> calculateFinalStats(int baseHp, int baseAtk, int baseDef, List<Buff> buffs) {
         return Map.of(
                 "Hp", calculateFinalHp(baseHp, buffs),
                 "Atk", calculateFinalAtk(baseAtk, buffs),

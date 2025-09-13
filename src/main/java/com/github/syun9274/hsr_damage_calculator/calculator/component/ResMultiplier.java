@@ -28,11 +28,20 @@ public class ResMultiplier {
     RES cannot go below -100% or above 90%.
      */
 
+    /**
+     * 원소 저항 배수 계산
+     * RES Multiplier = 1 - (적 저항% - 저항 관통%)
+     *
+     * @param character 공격하는 캐릭터 (원소 속성 확인용)
+     * @param enemy 방어하는 적 (약점/저항 속성 확인용)
+     * @param buffs 캐릭터의 버프 목록 (속성 저항 관통 효과)
+     * @return 저항으로 인한 데미지 배수 (0.1 ~ 1.9 범위로 제한)
+     */
     public double getResMultiplier(Character character, Enemy enemy, List<Buff> buffs) {
         double resPercent = calculateResPercent(
-                character.getElement,
+                character.getElement(),
                 enemy.getWeaknessElements(),    // List<Element>
-                enemy.getResistanceElements()); // List<Element>
+                enemy.getResistElements());     // List<Element>
         double resPen = calculateResPen(buffs);
         double res = 1 - (resPercent - resPen);
 

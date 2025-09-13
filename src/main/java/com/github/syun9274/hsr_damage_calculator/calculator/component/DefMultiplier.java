@@ -1,10 +1,18 @@
 package com.github.syun9274.hsr_damage_calculator.calculator.component;
 
-import lombok.AllArgsConstructor;
+import com.github.syun9274.hsr_damage_calculator.calculator.formula.DamageFormula;
+import com.github.syun9274.hsr_damage_calculator.model.Buff;
+import com.github.syun9274.hsr_damage_calculator.model.Character;
+import com.github.syun9274.hsr_damage_calculator.model.Enemy;
+import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
+import com.github.syun9274.hsr_damage_calculator.util.MathUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Slf4j
 @Component
-@AllArgsConstructor
 public class DefMultiplier {
 
     /*
@@ -21,4 +29,62 @@ public class DefMultiplier {
 
     DEF cannot go below 0.
      */
+
+    /**
+     * 방어력 배수 계산
+     *
+     * @param character  공격하는 캐릭터 (레벨 정보 필요)
+     * @param enemy      방어하는 적 (기본 방어력 정보 필요)
+     * @param enemyBuffs 적이 받고 있는 버프 (방어력 증가, 방어력 감소/무시)
+     * @return 방어력으로 인한 데미지 감소 배수 (0 ~ 1 사이 값)
+     */
+    public double getDefMultiplier(Character character, Enemy enemy,
+                                   List<Buff> enemyBuffs) {
+
+        double def = calculateDef(enemy, enemyBuffs);
+
+        log.info("1 - ({} / ({} + 200 + 10 * {}))", def, def, character.getLevel());
+        return 1 - (def / (def + 200 + 10 * character.getLevel()));
+    }
+
+    /**
+     * 적의 실제 방어력 계산
+     * Base DEF × (1 + DEF% - DEF감소%) + Flat DEF
+     *
+     * @param enemy      적 정보
+     * @param buffs 적 버프 (방어력 증가, 방어력 감소, 방어력 무시)
+     * @return 계산된 실제 방어력 (최소값 보장)
+     */
+    private double calculateDef(Enemy enemy, List<Buff> buffs) {
+        int baseDef = enemy.getBaseDef();
+        double defPer = calculateDefPer(buffs);
+        double defFlat = calculateDefFlat(buffs);
+        double defReduction = calculateDefReduction(buffs);
+
+        log.info("def = {} * (1 + {} - {}) + {}", baseDef, defPer, defFlat, defReduction);
+        double def = baseDef * (1 + defPer - defReduction) + defFlat;
+        return Math.max(DamageFormula.MIN_DEFENSE, def);
+    }
+
+    /**
+     * 적의 방어력 퍼센트 버프 합계
+     */
+    private double calculateDefPer(List<Buff> buffs) {
+        return MathUtil.sumPercentBuffs(buffs, BuffType.DEF_PERCENT);
+    }
+
+    /**
+     * 적의 방어력 고정 버프 합계
+     */
+    private double calculateDefFlat(List<Buff> buffs) {
+        return MathUtil.sumFlatBuffs(buffs, BuffType.DEF_FLAT);
+    }
+
+    /**
+     * 캐릭터의 방어력 감소/무시 효과 합계
+     */
+    private double calculateDefReduction(List<Buff> buffs) {
+        return MathUtil.sumPercentBuffs(buffs, BuffType.DEF_REDUCTION, BuffType.DEF_IGNORE);
+    }
+
 }

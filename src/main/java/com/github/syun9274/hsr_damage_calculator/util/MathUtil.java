@@ -12,17 +12,17 @@ public class MathUtil {
 
     /**
      * 스탯 표기 방식
-     * - 소수점 처리 기준을 모르겠음
+     * - 소수점 한 자리까지 표현
      * @param value 스탯
-     * @return 정수 변환 스탯
+     * @return 소수점 한자리까지 반올림된 스탯
      */
-    public static int toGameStatInt(double value) {
-        return (int) Math.round(value);
+    public static double toGameStatInt(double value) {
+        return Math.round(value * 10.0) / 10.0;
     }
 
     /**
      * 데미지 표기 방식
-     * - 소수점 처리 기준을 모르겠음
+     * - 우선은 반올림 처리
      * @param value 데미지
      * @return 정수 변환 데미지
      */

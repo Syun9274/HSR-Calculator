@@ -30,7 +30,7 @@ public class BaseDmg {
      */
     public double getBaseDmg(double skillMultiplier,
                              double extraMultiplier,
-                             int scalingAttribute,
+                             double scalingAttribute,
                              int extraDmg) {
         return (skillMultiplier + extraMultiplier) * scalingAttribute + extraDmg;
     }

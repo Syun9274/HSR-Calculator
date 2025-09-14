@@ -1,15 +1,13 @@
 package com.github.syun9274.hsr_damage_calculator.model;
 
-import com.github.syun9274.hsr_damage_calculator.model.enums.SkillType;
+import com.github.syun9274.hsr_damage_calculator.model.enums.AbilityType;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Table
 @Entity
-public class CharacterSkill {
+public class CharacterAbility {
 
     @Id
     private Long id;
@@ -19,7 +17,7 @@ public class CharacterSkill {
     private Character character;
 
     @Enumerated(EnumType.STRING)
-    private SkillType skillType; // BASIC, SKILL, ULTIMATE, TRACE
+    private AbilityType abilityType; // BASIC, SKILL, ULTIMATE, TRACE
 
     // 스킬 계수 정보
     private double skillMultiplier;

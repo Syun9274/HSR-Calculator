@@ -3,7 +3,7 @@ package com.github.syun9274.hsr_damage_calculator.calculator;
 import com.github.syun9274.hsr_damage_calculator.calculator.component.*;
 import com.github.syun9274.hsr_damage_calculator.exception.CustomException;
 import com.github.syun9274.hsr_damage_calculator.exception.ErrorCode;
-import com.github.syun9274.hsr_damage_calculator.model.Buff;
+import com.github.syun9274.hsr_damage_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_damage_calculator.model.Character;
 import com.github.syun9274.hsr_damage_calculator.model.Enemy;
 import com.github.syun9274.hsr_damage_calculator.util.MathUtil;
@@ -31,18 +31,18 @@ public class DamageCalculator {
 
     public Map<String, Integer> calculateOutgoingDmg(Character character,
                                                      Enemy enemy,
-                                                     List<Buff> charBuffs,
-                                                     List<Buff> enemyBuffs,
+                                                     List<BuffDto> charBuffDtos,
+                                                     List<BuffDto> enemyBuffDtos,
                                                      boolean isBroken) {
         try {
             double outGoingDamage = 0.0;
 
             // 공격 타입에 따라 달라지는 변수를 제외한 나머지 계산
-            double def = defMultiplier.getDefMultiplier(character, enemy, enemyBuffs);
-            double dmgTaken = dmgTakenMultiplier.getDmgTakenMultiplier(enemyBuffs);
-            double res = resMultiplier.getResMultiplier(character, enemy, charBuffs);
+            double def = defMultiplier.getDefMultiplier(character, enemy, enemyBuffDtos);
+            double dmgTaken = dmgTakenMultiplier.getDmgTakenMultiplier(enemyBuffDtos);
+            double res = resMultiplier.getResMultiplier(character, enemy, charBuffDtos);
             double uniDmgRed = universalDmgReductionMultiplier.getUniversalDmgReductionMultiplier(isBroken);
-            double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffs);
+            double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffDtos);
 
             outGoingDamage = def * dmgTaken * res * uniDmgRed * weak;
 
@@ -51,7 +51,7 @@ public class DamageCalculator {
                     character.getBaseHp(),
                     character.getBaseAtk(),
                     character.getBaseDef(),
-                    charBuffs);
+                    charBuffDtos);
 
             // 계산에 사용되는 캐릭터 스탯 추출
             double scalingAttribute = switch (character.getScalingAttribute().toLowerCase()) {
@@ -66,7 +66,7 @@ public class DamageCalculator {
                             character.getBasicAttack().getExtraMultiplier(),
                             scalingAttribute,
                             character.getBasicAttack().getExtraDamage()) *
-                    dmgMultiplier.getBasicAttackDmgMultiplier(charBuffs);
+                    dmgMultiplier.getBasicAttackDmgMultiplier(charBuffDtos);
 
             return Map.of(
                     "Final Damage", MathUtil.toGameDamageInt(finalDamage));

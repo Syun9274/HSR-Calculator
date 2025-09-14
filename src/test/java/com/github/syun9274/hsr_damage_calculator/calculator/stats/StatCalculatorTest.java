@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_damage_calculator.calculator.stats;
 
 import com.github.syun9274.hsr_damage_calculator.calculator.StatCalculator;
-import com.github.syun9274.hsr_damage_calculator.model.Buff;
+import com.github.syun9274.hsr_damage_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,10 +28,10 @@ class StatCalculatorTest {
     void calculateFinalAtk_NoBuff() {
         // given
         int baseAtk = 1236;
-        List<Buff> buffs = Collections.emptyList();
+        List<BuffDto> buffDtos = Collections.emptyList();
 
         // when
-        double result = statCalculator.calculateFinalAtk(baseAtk, buffs);
+        double result = statCalculator.calculateFinalAtk(baseAtk, buffDtos);
 
         // then
         assertEquals(1236, result);
@@ -42,18 +42,18 @@ class StatCalculatorTest {
     void calculateFinalAtk_OnlyFlatBuffs() {
         // given
         int baseAtk = 1222;
-        List<Buff> buffs = Arrays.asList(
-                new Buff(BuffType.ATK_FLAT, 56), // 장갑 0강화
+        List<BuffDto> buffDtos = Arrays.asList(
+                new BuffDto(BuffType.ATK_FLAT, 56), // 장갑 0강화
                 // 기본 행적 버프 (제거 불가)
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(8))
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8))
         );
 
         // when
-        double result = statCalculator.calculateFinalAtk(baseAtk, buffs);
+        double result = statCalculator.calculateFinalAtk(baseAtk, buffDtos);
 
         // then
         assertTrue(result >= 1618 && result <= 1622,
@@ -66,21 +66,21 @@ class StatCalculatorTest {
     void calculateFinalAtk_MixedBuffs() {
         // given
         int baseAtk = 1222;
-        List<Buff> buffs = Arrays.asList(
-                new Buff(BuffType.ATK_FLAT, 352),
-                new Buff(BuffType.ATK_FLAT, 19),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(8.6)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(43.2)),
+        List<BuffDto> buffDtos = Arrays.asList(
+                new BuffDto(BuffType.ATK_FLAT, 352),
+                new BuffDto(BuffType.ATK_FLAT, 19),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8.6)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(43.2)),
                 // 기본 행적 버프 (제거 불가)
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new Buff(BuffType.ATK_PERCENT, percentToDecimal(8))
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
+                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8))
         );
 
         // when
-        double result = statCalculator.calculateFinalAtk(baseAtk, buffs);
+        double result = statCalculator.calculateFinalAtk(baseAtk, buffDtos);
 
         // then
         assertTrue(result >= 2568 && result <= 2572,
@@ -94,14 +94,14 @@ class StatCalculatorTest {
     void calculateFinalAtk_IgnoreOtherBuffTypes() {
         // given
         int baseAtk = 1000;
-        List<Buff> buffs = Arrays.asList(
-                new Buff(BuffType.ATK_FLAT, 200),
-                new Buff(BuffType.HP_FLAT, 500),      // 무시되어야 함
-                new Buff(BuffType.DEF_PERCENT, 0.2)   // 무시되어야 함
+        List<BuffDto> buffDtos = Arrays.asList(
+                new BuffDto(BuffType.ATK_FLAT, 200),
+                new BuffDto(BuffType.HP_FLAT, 500),      // 무시되어야 함
+                new BuffDto(BuffType.DEF_PERCENT, 0.2)   // 무시되어야 함
         );
 
         // when
-        double result = statCalculator.calculateFinalAtk(baseAtk, buffs);
+        double result = statCalculator.calculateFinalAtk(baseAtk, buffDtos);
 
         // then
         assertEquals(1200, result);

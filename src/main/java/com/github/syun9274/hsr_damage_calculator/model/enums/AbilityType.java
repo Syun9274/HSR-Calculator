@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_damage_calculator.model.enums;
 
-public enum SkillType {
+public enum AbilityType {
 
     BASIC("일반 공격"),
     SKILL("전투 스킬"),
@@ -10,7 +10,7 @@ public enum SkillType {
 
     final String krDescription;
 
-    SkillType(String krDescription) {
+    AbilityType(String krDescription) {
         this.krDescription = krDescription;
     }
 }

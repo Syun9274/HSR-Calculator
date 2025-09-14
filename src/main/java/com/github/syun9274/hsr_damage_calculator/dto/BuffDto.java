@@ -1,4 +1,4 @@
-package com.github.syun9274.hsr_damage_calculator.model;
+package com.github.syun9274.hsr_damage_calculator.dto;
 
 import com.github.syun9274.hsr_damage_calculator.model.enums.BuffType;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Buff {
+public class BuffDto {
 
     private BuffType buffType;
+
     private double buffValue; // 소수 형태 (ex. 0.1)
 
 }

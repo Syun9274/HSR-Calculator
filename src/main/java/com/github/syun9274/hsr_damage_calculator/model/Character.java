@@ -2,7 +2,7 @@ package com.github.syun9274.hsr_damage_calculator.model;
 
 import com.github.syun9274.hsr_damage_calculator.model.enums.Element;
 import com.github.syun9274.hsr_damage_calculator.model.enums.FatePath;
-import com.github.syun9274.hsr_damage_calculator.model.enums.SkillType;
+import com.github.syun9274.hsr_damage_calculator.model.enums.AbilityType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,31 +28,31 @@ public class Character extends BaseEntity {
     private String scalingAttribute;
 
     @OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
-    private List<CharacterSkill> skills;
+    private List<CharacterAbility> abilities;
 
     // 편의 메서드들
-    public CharacterSkill getBasicAttack() {
-        return skills.stream()
-                .filter(skill -> skill.getSkillType() == SkillType.BASIC)
+    public CharacterAbility getBasicAttack() {
+        return abilities.stream()
+                .filter(skill -> skill.getAbilityType() == AbilityType.BASIC)
                 .findFirst().orElse(null);
     }
 
-    public CharacterSkill getSkill() {
-        return skills.stream()
-                .filter(skill -> skill.getSkillType() == SkillType.SKILL)
+    public CharacterAbility getSkill() {
+        return abilities.stream()
+                .filter(skill -> skill.getAbilityType() == AbilityType.SKILL)
                 .findFirst().orElse(null);
     }
 
-    public CharacterSkill getUltimate() {
-        return skills.stream()
-                .filter(skill -> skill.getSkillType() == SkillType.ULTIMATE)
+    public CharacterAbility getUltimate() {
+        return abilities.stream()
+                .filter(skill -> skill.getAbilityType() == AbilityType.ULTIMATE)
                 .findFirst().orElse(null);
     }
 
-    public CharacterSkill getTrace() {
-        return skills.stream()
-                .filter(skill -> skill.getSkillType() == SkillType.TRACE)
-                .findFirst().orElse(null);
+    public List<CharacterAbility> getTraces() {
+        return abilities.stream()
+                .filter(ability -> ability.getAbilityType() == AbilityType.TRACE)
+                .toList();
     }
 
 }

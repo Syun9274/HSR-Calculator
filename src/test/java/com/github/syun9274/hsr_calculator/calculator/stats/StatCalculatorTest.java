@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static com.github.syun9274.hsr_calculator.util.MathUtil.percentToDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatCalculatorTest {
@@ -45,11 +44,11 @@ class StatCalculatorTest {
         List<BuffDto> buffDtos = Arrays.asList(
                 new BuffDto(BuffType.ATK_FLAT, 56), // 장갑 0강화
                 // 기본 행적 버프 (제거 불가)
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8))
+                new BuffDto(BuffType.ATK_PERCENT, 4),
+                new BuffDto(BuffType.ATK_PERCENT, 4),
+                new BuffDto(BuffType.ATK_PERCENT, 6),
+                new BuffDto(BuffType.ATK_PERCENT, 6),
+                new BuffDto(BuffType.ATK_PERCENT, 8)
         );
 
         // when
@@ -69,14 +68,14 @@ class StatCalculatorTest {
         List<BuffDto> buffDtos = Arrays.asList(
                 new BuffDto(BuffType.ATK_FLAT, 352),
                 new BuffDto(BuffType.ATK_FLAT, 19),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8.6)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(43.2)),
+                new BuffDto(BuffType.ATK_PERCENT, 8.6),
+                new BuffDto(BuffType.ATK_PERCENT, 43.2),
                 // 기본 행적 버프 (제거 불가)
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(4)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(6)),
-                new BuffDto(BuffType.ATK_PERCENT, percentToDecimal(8))
+                new BuffDto(BuffType.ATK_PERCENT, 4),
+                new BuffDto(BuffType.ATK_PERCENT, 4),
+                new BuffDto(BuffType.ATK_PERCENT, 6),
+                new BuffDto(BuffType.ATK_PERCENT, 6),
+                new BuffDto(BuffType.ATK_PERCENT, 8)
         );
 
         // when

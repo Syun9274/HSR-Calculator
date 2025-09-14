@@ -33,16 +33,6 @@ public class MathUtil {
     }
 
     /**
-     * 백분율을 소수로 변환
-     *
-     * @param percentage 백분율 (예: 75.5)
-     * @return 소수 (예: 0.755)
-     */
-    public static double percentToDecimal(double percentage) {
-        return percentage / 100.0;
-    }
-
-    /**
      * 지정된 버프 타입들로 필터링된 버프 목록에서 고정 버프 값 합계 계산
      *
      * @param buffDtos     버프 타입과 값을 포함하는 버프 객체 목록
@@ -61,12 +51,12 @@ public class MathUtil {
      *
      * @param buffDtos     버프 타입과 값을 포함하는 버프 객체 목록
      * @param buffTypes 버프를 필터링할 버프 타입 배열
-     * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합
+     * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합 (소수점 형태)
      */
     public static double sumPercentBuffs(List<BuffDto> buffDtos, BuffType... buffTypes) {
         return buffDtos.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.getBuffType() == type))
-                .mapToDouble(BuffDto::getBuffValue)
+                .mapToDouble(buff -> buff.getBuffValue() / 100.0)  // percentToDecimal 효과 적용
                 .sum();
     }
 }

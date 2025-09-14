@@ -1,5 +1,6 @@
 package com.github.syun9274.hsr_calculator.dto.request;
 
+import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import jakarta.validation.constraints.Min;
@@ -31,5 +32,7 @@ public class ManualCharacterConfigRequestDto {
 
     @NotNull(message = "캐릭터 운명의 길 정보는 필수입니다.")
     private FatePath fatePath;
+
+    private CharacterAbilityDto basicAttack;
 
 }

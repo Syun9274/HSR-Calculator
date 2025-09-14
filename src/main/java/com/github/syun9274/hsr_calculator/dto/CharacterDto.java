@@ -54,7 +54,7 @@ public record CharacterDto(
                 request.getElement(),
                 request.getFatePath(),
                 request.getScalingAttribute(),
-                null,
+                request.getBasicAttack(),
                 null,
                 null,
                 null

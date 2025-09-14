@@ -33,6 +33,16 @@ public class MathUtil {
     }
 
     /**
+     * 백분율을 소수로 변환
+     *
+     * @param percentage 백분율 (예: 75.5)
+     * @return 소수 (예: 0.755)
+     */
+    public static double percentToDecimal(double percentage) {
+        return percentage / 100.0;
+    }
+
+    /**
      * 지정된 버프 타입들로 필터링된 버프 목록에서 고정 버프 값 합계 계산
      *
      * @param buffDtos     버프 타입과 값을 포함하는 버프 객체 목록

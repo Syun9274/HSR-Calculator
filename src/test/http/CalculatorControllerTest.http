@@ -1,0 +1,49 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST http://localhost:8080/api/v1/calculator/calculate/manual
+Content-Type: application/json
+
+{
+  "character": {
+    "name": "클라라",
+    "level": 80,
+    "baseHp": 5000,
+    "baseAtk": 2321,
+    "baseDef": 1000,
+    "scalingAttribute": "atk",
+    "element": "PHYSICAL",
+    "fatePath": "DESTRUCTION",
+    "basicAttack": {
+      "abilityType": "BASIC",
+      "skillMultiplier": 1,
+      "extraMultiplier": 0,
+      "extraDamage": 0
+    }
+  },
+  "enemy": {
+    "name": "테스트 적",
+    "level": 74,
+    "baseHp": 5000,
+    "baseDef": 940,
+    "weaknessElements": ["ICE", "WIND", "IMAGINARY"],
+    "resistanceElements": ["FIRE"],
+    "isBroken": false
+  },
+  "characterBuffs": {
+    "buffs": [
+      {"buffType": "DAMAGE_BOOST", "buffValue": 14.4},
+      {"buffType": "DAMAGE_BOOST", "buffValue": 95},
+      {"buffType": "RES_PEN", "buffValue": 24}
+    ]
+  },
+  "enemyBuffs": {
+    "buffs": [
+      {"buffType": "DEF_REDUCTION", "buffValue": 8},
+      {"buffType": "DEF_REDUCTION", "buffValue": 16},
+      {"buffType": "DAMAGE_TAKEN_INCREASE", "buffValue": 40}
+    ]
+  }
+}

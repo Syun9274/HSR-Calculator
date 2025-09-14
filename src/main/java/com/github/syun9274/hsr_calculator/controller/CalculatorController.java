@@ -2,6 +2,7 @@ package com.github.syun9274.hsr_calculator.controller;
 
 import com.github.syun9274.hsr_calculator.dto.request.BuffListRequestDto;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequestDto;
+import com.github.syun9274.hsr_calculator.dto.request.ManualDamageCalculationRequestDto;
 import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequestDto;
 import com.github.syun9274.hsr_calculator.dto.response.DamageResult;
 import com.github.syun9274.hsr_calculator.facade.GameFacade;
@@ -22,13 +23,13 @@ public class CalculatorController {
 
     @PostMapping("/calculate/manual")
     public ResponseEntity<?> calculate(
-            @Valid @RequestBody ManualCharacterConfigRequestDto characterReq,
-            @Valid @RequestBody ManualEnemyConfigRequestDto enemyReq,
-            @Valid @RequestBody BuffListRequestDto charBuffListReq,
-            @Valid @RequestBody BuffListRequestDto enemyBuffListReq
+            @Valid @RequestBody ManualDamageCalculationRequestDto request
     ) {
         DamageResult finalDamage = gameFacade.calculateDamageManual(
-                characterReq, enemyReq, charBuffListReq, enemyBuffListReq);
+                request.getCharacter(),
+                request.getEnemy(),
+                request.getCharacterBuffs(),
+                request.getEnemyBuffs());
 
         return ResponseEntity.ok().body(finalDamage);
     }

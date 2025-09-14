@@ -15,16 +15,12 @@ public abstract class BaseEntity {
     @Column(nullable = false, updatable = false)
     private String name;
 
-    @Column(nullable = false)
     private int level;
 
-    @Column(nullable = false)
     private int baseHp;
 
-    @Column(nullable = false)
     private int baseAtk;
 
-    @Column(nullable = false)
     private int baseDef;
 
 }

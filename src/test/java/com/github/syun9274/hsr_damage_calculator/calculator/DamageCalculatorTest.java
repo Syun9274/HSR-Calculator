@@ -74,7 +74,8 @@ class DamageCalculatorTest {
 
         // given - 6. 적이 받고 있는 버프
         List<Buff> enemyBuffs = Arrays.asList(
-                new Buff(BuffType.DEF_REDUCTION, percentToDecimal(8 + 16)),     // 방어력 감소
+                new Buff(BuffType.DEF_REDUCTION, percentToDecimal(8)),      // 방어력 감소
+                new Buff(BuffType.DEF_REDUCTION, percentToDecimal(16)),     // 방어력 감소
                 new Buff(BuffType.DAMAGE_TAKEN_INCREASE, percentToDecimal(40))  // 받는 피해 증가
         );
 
@@ -132,7 +133,6 @@ class DamageCalculatorTest {
         // 디버깅용 출력
         System.out.println("=== 데미지 계산 결과 ===");
         System.out.println("최종 공격력: " + finalStats);
-        System.out.println("피해 증가: " + (damageBoost * 100) + "%");
         System.out.println("캐릭터 속성: " + characterElement);
         System.out.println("적 약점: " + enemyWeakness);
         System.out.println("적 방어력: " + enemyDefense);

@@ -1,6 +1,7 @@
 package com.github.syun9274.hsr_damage_calculator.model;
 
 import com.github.syun9274.hsr_damage_calculator.model.enums.Element;
+import com.github.syun9274.hsr_damage_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_damage_calculator.model.enums.SkillType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,6 +18,10 @@ public class Character extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, updatable = false)
     private Element element;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, updatable = false)
+    private FatePath fatePath;
 
     // 메인 스탯 (hp || atk || def)
     @Column(nullable = false, updatable = false)
@@ -41,6 +46,12 @@ public class Character extends BaseEntity {
     public CharacterSkill getUltimate() {
         return skills.stream()
                 .filter(skill -> skill.getSkillType() == SkillType.ULTIMATE)
+                .findFirst().orElse(null);
+    }
+
+    public CharacterSkill getTrace() {
+        return skills.stream()
+                .filter(skill -> skill.getSkillType() == SkillType.TRACE)
                 .findFirst().orElse(null);
     }
 

@@ -44,8 +44,6 @@ public class DamageCalculator {
             double uniDmgRed = universalDmgReductionMultiplier.getUniversalDmgReductionMultiplier(isBroken);
             double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffs);
 
-            log.info("Def: {}, DmgTaken: {}, Res: {}, UniDmgRed: {}, Weak: {}", def, dmgTaken, res, uniDmgRed, weak);
-
             outGoingDamage = def * dmgTaken * res * uniDmgRed * weak;
 
             // 캐릭터 스탯에 버프 일괄 적용

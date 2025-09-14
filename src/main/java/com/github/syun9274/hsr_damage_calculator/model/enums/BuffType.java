@@ -10,13 +10,13 @@ public enum BuffType {
     DEF_FLAT("방어력 고정 수치 버프"),
     DEF_PERCENT("방어력 퍼센트 버프"),
 
-    // 아군 피해 버프 효과
+    // 아군 피해 버프 효과 (target = self, team, etc)
     DAMAGE_BOOST("가하는 피해 증가"),
     BASIC_ATTACK_DAMAGE_BOOST("일반 공격 피해 증가"),
     SKILL_DAMAGE_BOOST("전투 스킬 피해 증가"),
     ULTIMATE_DAMAGE_BOOST("필살기 피해 증가"),
 
-    // 적 버프 효과
+    // 적 버프 효과 (target = enemy)
     DAMAGE_TAKEN_INCREASE("받는 피해 증가"),
     DEF_REDUCTION("방어력 감소"),
     DEF_IGNORE("방어 무시"),

@@ -43,7 +43,6 @@ public class DefMultiplier {
 
         double def = calculateDef(enemy, enemyBuffs);
 
-        log.info("1 - ({} / ({} + 200 + 10 * {}))", def, def, character.getLevel());
         return 1 - (def / (def + 200 + 10 * character.getLevel()));
     }
 
@@ -61,9 +60,8 @@ public class DefMultiplier {
         double defFlat = calculateDefFlat(buffs);
         double defReduction = calculateDefReduction(buffs);
 
-        log.info("def = {} * (1 + {} - {}) + {}", baseDef, defPer, defFlat, defReduction);
         double def = baseDef * (1 + defPer - defReduction) + defFlat;
-        return Math.max(DamageFormula.MIN_DEFENSE, def);
+        return Math.max(DamageFormula.MIN_DEF, def);
     }
 
     /**

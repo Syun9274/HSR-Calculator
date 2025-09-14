@@ -46,10 +46,9 @@ public class ResMultiplier {
                 enemy.getResistElements());     // List<Element>
         double resPen = calculateResPen(buffs);
         double res = 1 - (resPercent - resPen);
-        log.info("{} = 1 - ({} - {})", res, resPercent, resPen);
 
         // Math.clamp(value, min, max)는 값을 min과 max 사이로 제한해주는 메서드
-        return Math.clamp(res, DamageFormula.MIN_RESISTANCE, DamageFormula.MAX_RESISTANCE);
+        return Math.clamp(res, DamageFormula.MIN_RES_MULTIPLIER, DamageFormula.MAX_RES_MULTIPLIER);
     }
 
     /**

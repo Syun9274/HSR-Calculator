@@ -2,8 +2,8 @@ package com.github.syun9274.hsr_calculator.calculator.component;
 
 import com.github.syun9274.hsr_calculator.calculator.formula.DamageFormula;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
-import com.github.syun9274.hsr_calculator.model.Character;
-import com.github.syun9274.hsr_calculator.model.Enemy;
+import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
@@ -39,11 +39,11 @@ public class ResMultiplier {
      * @param buffDtos     캐릭터의 버프 목록 (속성 저항 관통 효과)
      * @return 저항으로 인한 데미지 배수 (0.1 ~ 1.9 범위로 제한)
      */
-    public double getResMultiplier(Character character, Enemy enemy, List<BuffDto> buffDtos) {
+    public double getResMultiplier(CharacterDto character, EnemyDto enemy, List<BuffDto> buffDtos) {
         double resPercent = calculateResPercent(
-                character.getElement(),
-                enemy.getWeaknessElements(),    // List<Element>
-                enemy.getResistElements());     // List<Element>
+                character.element(),
+                enemy.weaknessElements(),    // List<Element>
+                enemy.resistElements());     // List<Element>
         double resPen = calculateResPen(buffDtos);
         double res = 1 - (resPercent - resPen);
 

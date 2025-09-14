@@ -2,11 +2,10 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
-import com.github.syun9274.hsr_calculator.model.Character;
-import com.github.syun9274.hsr_calculator.model.CharacterAbility;
-import com.github.syun9274.hsr_calculator.model.Enemy;
-import com.github.syun9274.hsr_calculator.model.enums.BuffType;
-import com.github.syun9274.hsr_calculator.model.enums.Element;
+import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
+import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.EnemyDto;
+import com.github.syun9274.hsr_calculator.model.enums.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +54,7 @@ class DamageCalculatorTest {
         // given - 3. 캐릭터 레벨, 속성
         int characterLevel = 80;
         Element characterElement = Element.PHYSICAL;
+        FatePath characterFatePath = FatePath.DESTRUCTION;
 
         // given - 스킬 계수 정보 추가
         double skillMultiplier = 1;         // 공격력의 100%
@@ -79,28 +79,40 @@ class DamageCalculatorTest {
                 new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, percentToDecimal(40))  // 받는 피해 증가
         );
 
-        // given - 캐릭터 객체 생성
-        Character character = new Character() {
-            @Override
-            public CharacterAbility getBasicAttack() {
-                CharacterAbility basicAttack = new CharacterAbility();
-                basicAttack.setSkillMultiplier(skillMultiplier);
-                basicAttack.setExtraMultiplier(extraMultiplier);
-                basicAttack.setExtraDamage(extraDamage);
-                return basicAttack;
-            }
-        };
-        character.setLevel(characterLevel);
-        character.setElement(characterElement);
-        character.setBaseAtk(finalStats);
-        character.setScalingAttribute("atk");
+        // given - 캐릭터 스킬 DTO 생성
+        CharacterAbilityDto basicAttack = CharacterAbilityDto.builder()
+                .abilityType(AbilityType.BASIC)
+                .skillMultiplier(skillMultiplier)
+                .extraMultiplier(extraMultiplier)
+                .extraDamage(extraDamage)
+                .build();
 
-        // given - 적 객체 생성
-        Enemy enemy = new Enemy();
-        enemy.setLevel(74);
-        enemy.setBaseDef(enemyDefense);
-        enemy.setWeaknessElements(enemyWeakness);
-        enemy.setResistElements(enemyResistance);
+        // given - 캐릭터 DTO 생성
+        CharacterDto character = CharacterDto.builder()
+                .name("테스트 캐릭터")
+                .level(80)
+                .baseHp(1000)
+                .baseAtk(finalStats)
+                .baseDef(500)
+                .element(Element.PHYSICAL)
+                .fatePath(FatePath.DESTRUCTION)
+                .scalingAttribute("atk")
+                .basicAttack(basicAttack)
+                .skill(null)
+                .ultimate(null)
+                .traces(List.of().toArray(new CharacterAbilityDto[0]))
+                .build();
+
+        // given - 적 DTO 생성
+        EnemyDto enemy = EnemyDto.builder()
+                .name("테스트 적")
+                .level(74)
+                .baseHp(10000)
+                .baseDef(enemyDefense)
+                .weaknessElements(enemyWeakness)
+                .resistElements(enemyResistance)
+                .isBroken(false)
+                .build();
 
         // given - 캐릭터 버프
         List<BuffDto> charBuffDtos = new ArrayList<>();
@@ -111,13 +123,13 @@ class DamageCalculatorTest {
         boolean isBroken = false; // 약점 격파 상태 아님
 
         // when
-        Map<String, Integer> result = damageCalculator.calculateOutgoingDmg(
+        Map<DamageType, Integer> result = damageCalculator.calculateOutgoingDmg(
                 character, enemy, charBuffDtos, enemyBuffDtos, isBroken);
 
         // then
         assertNotNull(result);
-        assertTrue(result.containsKey("Final Damage"));
-        int finalDamage = result.get("Final Damage");
+        assertTrue(result.containsKey(DamageType.BASIC_NORMAL));
+        int finalDamage = result.get(DamageType.BASIC_NORMAL);
 
         // 수동 계산, 예상 값과 비교 (소수점 처리 고려)
         int expectedMinDamage = 3714; // 예상 최소 데미지

@@ -1,11 +1,12 @@
 package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
+import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.exception.CustomException;
 import com.github.syun9274.hsr_calculator.exception.ErrorCode;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
-import com.github.syun9274.hsr_calculator.model.Character;
-import com.github.syun9274.hsr_calculator.model.Enemy;
+import com.github.syun9274.hsr_calculator.model.enums.DamageType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +30,11 @@ public class DamageCalculator {
     private final UniversalDmgReductionMultiplier universalDmgReductionMultiplier;
     private final WeakenMultiplier weakenMultiplier;
 
-    public Map<String, Integer> calculateOutgoingDmg(Character character,
-                                                     Enemy enemy,
-                                                     List<BuffDto> charBuffDtos,
-                                                     List<BuffDto> enemyBuffDtos,
-                                                     boolean isBroken) {
+    public Map<DamageType, Integer> calculateOutgoingDmg(CharacterDto character,
+                                                         EnemyDto enemy,
+                                                         List<BuffDto> charBuffDtos,
+                                                         List<BuffDto> enemyBuffDtos,
+                                                         boolean isBroken) {
         try {
             double outGoingDamage = 0.0;
 
@@ -48,13 +49,13 @@ public class DamageCalculator {
 
             // 캐릭터 스탯에 버프 일괄 적용
             Map<String, Double> finalStats = statCalculator.calculateFinalStats(
-                    character.getBaseHp(),
-                    character.getBaseAtk(),
-                    character.getBaseDef(),
+                    character.baseHp(),
+                    character.baseAtk(),
+                    character.baseDef(),
                     charBuffDtos);
 
             // 계산에 사용되는 캐릭터 스탯 추출
-            double scalingAttribute = switch (character.getScalingAttribute().toLowerCase()) {
+            double scalingAttribute = switch (character.scalingAttribute().toLowerCase()) {
                 case "hp" -> finalStats.get("Hp");
                 case "def" -> finalStats.get("Def");
                 default -> finalStats.get("Atk");
@@ -62,14 +63,14 @@ public class DamageCalculator {
 
             double finalDamage = outGoingDamage *
                     baseDmg.getBaseDmg(
-                            character.getBasicAttack().getSkillMultiplier(),
-                            character.getBasicAttack().getExtraMultiplier(),
+                            character.basicAttack().skillMultiplier(),
+                            character.basicAttack().extraMultiplier(),
                             scalingAttribute,
-                            character.getBasicAttack().getExtraDamage()) *
+                            character.basicAttack().extraDamage()) *
                     dmgMultiplier.getBasicAttackDmgMultiplier(charBuffDtos);
 
             return Map.of(
-                    "Final Damage", MathUtil.toGameDamageInt(finalDamage));
+                    DamageType.BASIC_NORMAL, MathUtil.toGameDamageInt(finalDamage));
 
         } catch (ArithmeticException e) {
             log.error("Damage calculation overflow: {}", e.getMessage());

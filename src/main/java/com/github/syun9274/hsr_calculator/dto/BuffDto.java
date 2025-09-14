@@ -12,8 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BuffDto {
 
-    private BuffType buffType;
-
-    private double buffValue; // 소수 형태 (ex. 0.1)
+    private BuffType buffType; // 버프 타입 (ex. 가하는 피해 증가)
+    private double buffValue;  // 버프 수치 (소수 형태 (ex. 0.1))
 
 }

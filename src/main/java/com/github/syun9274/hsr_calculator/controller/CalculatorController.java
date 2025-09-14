@@ -3,6 +3,7 @@ package com.github.syun9274.hsr_calculator.controller;
 import com.github.syun9274.hsr_calculator.dto.request.BuffListRequestDto;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequestDto;
 import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequestDto;
+import com.github.syun9274.hsr_calculator.dto.response.DamageResult;
 import com.github.syun9274.hsr_calculator.facade.GameFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class CalculatorController {
             @Valid @RequestBody BuffListRequestDto charBuffListReq,
             @Valid @RequestBody BuffListRequestDto enemyBuffListReq
     ) {
-        int finalDamage = gameFacade.calculateDamageManual(
+        DamageResult finalDamage = gameFacade.calculateDamageManual(
                 characterReq, enemyReq, charBuffListReq, enemyBuffListReq);
 
         return ResponseEntity.ok().body(finalDamage);

@@ -1,5 +1,5 @@
 # 🎮 HSR 데미지 계산기
-> 붕괴: 스타레일 캐릭터 데미지 계산 시뮬레이터
+> 붕괴: 스타레일 계산기
 
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
@@ -7,8 +7,8 @@
 
 ## 📋 프로젝트 소개
 
-붕괴: 스타레일의 복잡한 데미지 계산 공식을 구현한 웹 애플리케이션입니다.  
-캐릭터 스탯, 적 정보, 버프/디버프를 설정하여 정확한 데미지를 계산할 수 있습니다.
+붕괴: 스타레일의 복잡한 계산 공식을 구현한 웹 애플리케이션입니다.  
+캐릭터 스탯, 적 정보, 버프/디버프를 설정하여 각종 스탯, 최종 데미지 등을 계산할 수 있습니다.
 
 ## 🚀 주요 기능
 

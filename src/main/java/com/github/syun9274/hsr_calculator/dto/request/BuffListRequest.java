@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class BuffListRequestDto {
+public class BuffListRequest {
 
     @Valid
     private List<BuffRequestDto> buffs = new ArrayList<>();

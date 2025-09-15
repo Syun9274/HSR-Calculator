@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.dto;
 
-import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequestDto;
+import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequest;
 import com.github.syun9274.hsr_calculator.model.Enemy;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import lombok.Builder;
@@ -33,9 +33,9 @@ public record EnemyDto(
     }
 
     /**
-     * ManualEnemyConfigRequestDto -> EnemyDto
+     * ManualEnemyConfigRequest -> EnemyDto
      */
-    public static EnemyDto from(ManualEnemyConfigRequestDto request) {
+    public static EnemyDto from(ManualEnemyConfigRequest request) {
         return new EnemyDto(
                 request.getName(),
                 request.getLevel(),

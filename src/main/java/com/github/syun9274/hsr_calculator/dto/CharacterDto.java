@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.dto;
 
-import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequestDto;
+import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;
 import com.github.syun9274.hsr_calculator.model.Character;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
@@ -44,7 +44,7 @@ public record CharacterDto(
     /**
      * CharacterEntity -> CharacterDto
      */
-    public static CharacterDto from(ManualCharacterConfigRequestDto request) {
+    public static CharacterDto from(ManualCharacterConfigRequest request) {
         return new CharacterDto(
                 request.getName(),
                 request.getLevel(),

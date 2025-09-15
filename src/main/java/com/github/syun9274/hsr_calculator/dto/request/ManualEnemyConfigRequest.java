@@ -9,7 +9,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ManualEnemyConfigRequestDto {
+public class ManualEnemyConfigRequest {
 
     private String name;
 

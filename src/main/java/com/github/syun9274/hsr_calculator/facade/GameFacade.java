@@ -3,9 +3,9 @@ package com.github.syun9274.hsr_calculator.facade;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_calculator.dto.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
-import com.github.syun9274.hsr_calculator.dto.request.BuffListRequestDto;
-import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequestDto;
-import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequestDto;
+import com.github.syun9274.hsr_calculator.dto.request.BuffListRequest;
+import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;
+import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequest;
 import com.github.syun9274.hsr_calculator.dto.response.DamageResult;
 import com.github.syun9274.hsr_calculator.model.enums.DamageType;
 import com.github.syun9274.hsr_calculator.service.CharacterService;
@@ -35,10 +35,10 @@ public class GameFacade {
      * @return 최종 계산된 데미지 값
      */
     public DamageResult calculateDamageManual(
-            ManualCharacterConfigRequestDto characterReq,
-            ManualEnemyConfigRequestDto enemyReq,
-            BuffListRequestDto charBuffListReq,
-            BuffListRequestDto enemyBuffListReq
+            ManualCharacterConfigRequest characterReq,
+            ManualEnemyConfigRequest enemyReq,
+            BuffListRequest charBuffListReq,
+            BuffListRequest enemyBuffListReq
     ) {
         // characterDto 변환
         CharacterDto characterDto = characterService.configureCharacterManually(characterReq);

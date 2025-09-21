@@ -54,6 +54,6 @@ public class GameFacade {
                 characterDto, enemyDto, charBuffs, enemyBuffs, enemyDto.isBroken()
         );
 
-        return DamageResult.result(finalDamage);
+        return DamageResult.from(finalDamage);
     }
 }

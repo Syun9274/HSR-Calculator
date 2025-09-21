@@ -17,17 +17,17 @@ public record DamageResult(
         int ultimateCrit,
         int ultimateExpected
 ) {
-    public static DamageResult result(Map<DamageType, Integer> finalDamage) {
-        return DamageResult.builder()
-                .basicAttackNormal(finalDamage.get(DamageType.BASIC_NORMAL))
-                .basicAttackCrit(0)
-                .basicAttackExpected(0)
-                .skillNormal(0)
-                .skillCrit(0)
-                .skillExpected(0)
-                .ultimateNormal(0)
-                .ultimateCrit(0)
-                .ultimateExpected(0)
-                .build();
+    public static DamageResult from(Map<DamageType, Integer> finalDamage) {
+        return new DamageResult(
+                finalDamage.getOrDefault(DamageType.BASIC_NORMAL, 0),
+                finalDamage.getOrDefault(DamageType.BASIC_CRIT, 0),
+                finalDamage.getOrDefault(DamageType.BASIC_EXPECTED, 0),
+                finalDamage.getOrDefault(DamageType.SKILL_NORMAL, 0),
+                finalDamage.getOrDefault(DamageType.SKILL_CRIT, 0),
+                finalDamage.getOrDefault(DamageType.SKILL_EXPECTED, 0),
+                finalDamage.getOrDefault(DamageType.ULTIMATE_NORMAL, 0),
+                finalDamage.getOrDefault(DamageType.ULTIMATE_CRIT, 0),
+                finalDamage.getOrDefault(DamageType.ULTIMATE_EXPECTED, 0)
+        );
     }
 }

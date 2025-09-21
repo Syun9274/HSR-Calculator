@@ -3,6 +3,8 @@ package com.github.syun9274.hsr_calculator.converter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.syun9274.hsr_calculator.exception.CustomException;
+import com.github.syun9274.hsr_calculator.exception.ErrorCode;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
@@ -45,8 +47,7 @@ public class ElementListConverter implements AttributeConverter<List<Element>, S
         try {
             return objectMapper.writeValueAsString(elements);
         } catch (JsonProcessingException e) {
-            log.error("Element를 JSON으로 convert 하는 것을 실패했습니다.", e);
-            return null;
+            throw new CustomException(ErrorCode.JSON_CONVERSION_ERROR);
         }
     }
 
@@ -65,8 +66,7 @@ public class ElementListConverter implements AttributeConverter<List<Element>, S
             return objectMapper.readValue(dbData, new TypeReference<List<Element>>() {
             });
         } catch (JsonProcessingException e) {
-            log.error("JSON을 Element 리스트로 convert 하는 것을 실패했습니다.", e);
-            return new ArrayList<>();
+            throw new CustomException(ErrorCode.JSON_CONVERSION_ERROR);
         }
     }
 }

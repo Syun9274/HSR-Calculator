@@ -9,6 +9,7 @@ public enum ErrorCode {
 
     // 서버 내부 오류
     SERVER_ERROR(500, "내부 오류가 발생했습니다."),
+    JSON_CONVERSION_ERROR(500, "JSON CONVERT 과정에서 오류가 발생했습니다."),
 
     // 계산 관련 오류
     CALCULATION_ERROR(400, "데미지 계산 중 오류가 발생했습니다."),

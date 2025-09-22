@@ -28,7 +28,6 @@ public class ManualEnemyConfigRequest {
 
     private List<Element> resistanceElements;
 
-    @NotNull(message = "강인성 파괴 여부 값 정보는 필수 입니다.")
-    boolean isBroken = false; // default: false
+    boolean isBroken; // default = false
 
 }

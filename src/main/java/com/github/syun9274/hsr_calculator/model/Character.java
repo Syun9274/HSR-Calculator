@@ -3,6 +3,7 @@ package com.github.syun9274.hsr_calculator.model;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_calculator.model.enums.AbilityType;
+import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,8 +25,9 @@ public class Character extends BaseEntity {
     private FatePath fatePath;
 
     // 메인 스탯 (hp || atk || def)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, updatable = false)
-    private String scalingAttribute;
+    private StatType scalingAttribute;
 
     @OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
     private List<CharacterAbility> abilities;

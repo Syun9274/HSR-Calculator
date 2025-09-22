@@ -55,8 +55,8 @@ public class MathUtil {
         }
 
         return buffDtos.stream()
-                .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.getBuffType() == type))
-                .mapToInt(buff -> (int) buff.getBuffValue())
+                .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
+                .mapToInt(buff -> (int) buff.buffValue())
                 .sum();
     }
 
@@ -73,8 +73,8 @@ public class MathUtil {
         }
 
         return buffDtos.stream()
-                .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.getBuffType() == type))
-                .mapToDouble(buff -> buff.getBuffValue() / 100.0)  // percentToDecimal 효과 적용
+                .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
+                .mapToDouble(buff -> buff.buffValue() / 100.0)  // percentToDecimal 효과 적용
                 .sum();
     }
 }

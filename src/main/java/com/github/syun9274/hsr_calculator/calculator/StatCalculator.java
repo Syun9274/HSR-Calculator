@@ -2,6 +2,7 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
+import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -50,11 +51,11 @@ public class StatCalculator {
      * @param buffDtos 캐릭터의 스탯과 관련된 버프 목록
      * @return "Hp", "Atk", "Def" 키와 계산된 값들을 포함하는 최종 스탯 Map
      */
-    public Map<String, Double> calculateFinalStats(int baseHp, int baseAtk, int baseDef, List<BuffDto> buffDtos) {
+    public Map<StatType, Double> calculateFinalStats(int baseHp, int baseAtk, int baseDef, List<BuffDto> buffDtos) {
         return Map.of(
-                "Hp", calculateFinalHp(baseHp, buffDtos),
-                "Atk", calculateFinalAtk(baseAtk, buffDtos),
-                "Def", calculateFinalDef(baseDef, buffDtos)
+                StatType.HP, calculateFinalHp(baseHp, buffDtos),
+                StatType.ATK, calculateFinalAtk(baseAtk, buffDtos),
+                StatType.DEF, calculateFinalDef(baseDef, buffDtos)
         );
     }
 }

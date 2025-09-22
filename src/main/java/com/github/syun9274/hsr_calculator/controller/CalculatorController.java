@@ -19,7 +19,7 @@ public class CalculatorController {
     private final GameFacade gameFacade;
 
     @PostMapping("/calculate/manual")
-    public ResponseEntity<?> calculate(
+    public ResponseEntity<DamageResult> calculate(
             @Valid @RequestBody ManualDamageCalculationRequest request
     ) {
         DamageResult finalDamage = gameFacade.calculateDamageManual(

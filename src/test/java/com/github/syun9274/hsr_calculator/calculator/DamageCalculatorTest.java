@@ -95,7 +95,7 @@ class DamageCalculatorTest {
                 .baseDef(500)
                 .element(Element.PHYSICAL)
                 .fatePath(FatePath.DESTRUCTION)
-                .scalingAttribute("atk")
+                .scalingAttribute(StatType.ATK)
                 .basicAttack(basicAttack)
                 .skill(null)
                 .ultimate(null)

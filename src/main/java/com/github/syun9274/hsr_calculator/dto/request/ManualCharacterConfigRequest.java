@@ -3,6 +3,7 @@ package com.github.syun9274.hsr_calculator.dto.request;
 import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
+import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -24,8 +25,8 @@ public class ManualCharacterConfigRequest {
     @Min(value = 0, message = "기초 방어력은 0 이상이어야 합니다.")
     private int baseDef;
 
-    @NotNull(message = "캐릭터 메인 계수 정보는 필수입니다. (hp, atk, def)")
-    private String scalingAttribute;
+    @NotNull(message = "캐릭터 메인 계수 정보는 필수입니다. (HP, ATK, DEF)")
+    private StatType scalingAttribute;
 
     @NotNull(message = "캐릭터 속성 정보는 필수입니다.")
     private Element element;

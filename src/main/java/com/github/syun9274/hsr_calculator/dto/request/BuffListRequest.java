@@ -20,21 +20,17 @@ public class BuffListRequest {
     @Valid
     private List<BuffRequestDto> buffs = new ArrayList<>();
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class BuffRequestDto {
+    public record BuffRequestDto(
+            @NotNull
+            BuffType buffType,
 
-        @NotNull
-        private BuffType buffType;
-
-        @DecimalMin(value = "0.0")
-        private double buffValue;
-    }
+            @DecimalMin(value = "0.0")
+            double buffValue
+    ) {}
 
     public List<BuffDto> toBuffList() {
         return buffs.stream()
-                .map(dto -> new BuffDto(dto.getBuffType(), dto.getBuffValue()))
+                .map(dto -> new BuffDto(dto.buffType, dto.buffValue))
                 .toList();
     }
 }

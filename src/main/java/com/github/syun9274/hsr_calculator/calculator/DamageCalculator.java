@@ -7,6 +7,7 @@ import com.github.syun9274.hsr_calculator.exception.CustomException;
 import com.github.syun9274.hsr_calculator.exception.ErrorCode;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_calculator.model.enums.DamageType;
+import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,17 +49,17 @@ public class DamageCalculator {
             outGoingDamage = def * dmgTaken * res * uniDmgRed * weak;
 
             // 캐릭터 스탯에 버프 일괄 적용
-            Map<String, Double> finalStats = statCalculator.calculateFinalStats(
+            Map<StatType, Double> finalStats = statCalculator.calculateFinalStats(
                     character.baseHp(),
                     character.baseAtk(),
                     character.baseDef(),
                     charBuffDtos);
 
             // 계산에 사용되는 캐릭터 스탯 추출
-            double scalingAttribute = switch (character.scalingAttribute().toLowerCase()) {
-                case "hp" -> finalStats.get("Hp");
-                case "def" -> finalStats.get("Def");
-                default -> finalStats.get("Atk");
+            double scalingAttribute = switch (character.scalingAttribute()) {
+                case StatType.HP -> finalStats.get(StatType.HP);
+                case StatType.DEF -> finalStats.get(StatType.DEF);
+                default -> finalStats.get(StatType.ATK);
             };
 
             double finalDamage = outGoingDamage *

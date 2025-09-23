@@ -1,5 +1,8 @@
 package com.github.syun9274.hsr_calculator.dto;
 
+import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
+import com.github.syun9274.hsr_calculator.dto.character.SkillDto;
+import com.github.syun9274.hsr_calculator.dto.character.UltimateDto;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;
 import com.github.syun9274.hsr_calculator.model.Character;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
@@ -17,10 +20,9 @@ public record CharacterDto(
         Element element,                 // 캐릭터 원소
         FatePath fatePath,               // 운명의 길
         StatType scalingAttribute,         // 메인 계수 (hp, atk, def)
-        CharacterAbilityDto basicAttack, // 일반 공격 정보
-        CharacterAbilityDto skill,       // 전투 스킬 정보
-        CharacterAbilityDto ultimate,    // 필살기 정보
-        CharacterAbilityDto[] traces     // 행적 정보
+        BasicAttackDto basicAttack, // 일반 공격 정보
+        SkillDto skill,       // 전투 스킬 정보
+        UltimateDto ultimate // 필살기 정보
 ) {
     /**
      * CharacterEntity -> CharacterDto
@@ -35,7 +37,6 @@ public record CharacterDto(
                 character.getElement(),
                 character.getFatePath(),
                 character.getScalingAttribute(),
-                null,
                 null,
                 null,
                 null
@@ -56,7 +57,6 @@ public record CharacterDto(
                 request.getFatePath(),
                 request.getScalingAttribute(),
                 request.getBasicAttack(),
-                null,
                 null,
                 null
         );

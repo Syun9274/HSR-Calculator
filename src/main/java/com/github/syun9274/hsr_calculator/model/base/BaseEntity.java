@@ -1,12 +1,12 @@
-package com.github.syun9274.hsr_calculator.model;
+package com.github.syun9274.hsr_calculator.model.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
-@MappedSuperclass
 @Data
+@MappedSuperclass
 public abstract class BaseEntity {
 
     @Id

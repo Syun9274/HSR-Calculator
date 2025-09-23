@@ -17,7 +17,6 @@ Content-Type: application/json
     "element": "PHYSICAL",
     "fatePath": "DESTRUCTION",
     "basicAttack": {
-      "abilityType": "BASIC",
       "skillMultiplier": 1,
       "extraMultiplier": 0,
       "extraDamage": 0

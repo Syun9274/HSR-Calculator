@@ -2,7 +2,7 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
-import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
+import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
 import com.github.syun9274.hsr_calculator.dto.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.*;
@@ -78,28 +78,25 @@ class DamageCalculatorTest {
                 new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, 40)  // 받는 피해 증가
         );
 
-        // given - 캐릭터 스킬 DTO 생성
-        CharacterAbilityDto basicAttack = CharacterAbilityDto.builder()
-                .abilityType(AbilityType.BASIC)
-                .skillMultiplier(skillMultiplier)
-                .extraMultiplier(extraMultiplier)
-                .extraDamage(extraDamage)
-                .build();
+        // given - 캐릭터 일반 공격 DTO 생성
+        BasicAttackDto basicAttack = new BasicAttackDto(
+                skillMultiplier,
+                extraMultiplier,
+                extraDamage);
 
         // given - 캐릭터 DTO 생성
         CharacterDto character = CharacterDto.builder()
                 .name("테스트 캐릭터")
-                .level(80)
+                .level(characterLevel)
                 .baseHp(1000)
                 .baseAtk(finalStats)
                 .baseDef(500)
-                .element(Element.PHYSICAL)
-                .fatePath(FatePath.DESTRUCTION)
+                .element(characterElement)
+                .fatePath(characterFatePath)
                 .scalingAttribute(StatType.ATK)
                 .basicAttack(basicAttack)
                 .skill(null)
                 .ultimate(null)
-                .traces(List.of().toArray(new CharacterAbilityDto[0]))
                 .build();
 
         // given - 적 DTO 생성

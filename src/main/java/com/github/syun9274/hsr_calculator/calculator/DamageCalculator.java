@@ -40,9 +40,9 @@ public class DamageCalculator {
             double outGoingDamage = 0.0;
 
             // 공격 타입에 따라 달라지는 변수를 제외한 나머지 계산
-            double def = defMultiplier.getDefMultiplier(character, enemy, enemyBuffDtos);
+            double def = defMultiplier.getDefMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
             double dmgTaken = dmgTakenMultiplier.getDmgTakenMultiplier(enemyBuffDtos);
-            double res = resMultiplier.getResMultiplier(character, enemy, charBuffDtos);
+            double res = resMultiplier.getResMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
             double uniDmgRed = universalDmgReductionMultiplier.getUniversalDmgReductionMultiplier(isBroken);
             double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffDtos);
 
@@ -68,7 +68,7 @@ public class DamageCalculator {
                             character.basicAttack().extraMultiplier(),
                             scalingAttribute,
                             character.basicAttack().extraDamage()) *
-                    dmgMultiplier.getBasicAttackDmgMultiplier(charBuffDtos);
+                    dmgMultiplier.getBasicAttackDmgMultiplier(character.element(), charBuffDtos);
 
             return Map.of(
                     DamageType.BASIC_NORMAL, MathUtil.toGameDamageInt(finalDamage));

@@ -34,8 +34,8 @@ public class ResMultiplier {
      * 원소 저항 배수 계산
      * RES Multiplier = 1 - (적 저항% - 저항 관통%)
      *
-     * @param character  공격하는 캐릭터 (원소 속성 확인용)
-     * @param enemy      방어하는 적 (약점/저항 속성 확인용)
+     * @param character     공격하는 캐릭터 (원소 속성 확인용)
+     * @param enemy         방어하는 적 (약점/저항 속성 확인용)
      * @param charBuffDtos  캐릭터의 버프 목록 (속성 저항 관통 효과)
      * @param enemyBuffDtos 적의 디버프 목록 (속성 저항 감소 효과)
      * @return 저항으로 인한 데미지 배수 (0.1 ~ 1.9 범위로 제한)

@@ -37,7 +37,7 @@ public class DamageCalculator {
                                                          List<BuffDto> enemyBuffDtos,
                                                          boolean isBroken) {
         try {
-            double outGoingDamage = 0.0;
+            double outGoingDamage;
 
             // 공격 타입에 따라 달라지는 변수를 제외한 나머지 계산
             double def = defMultiplier.getDefMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);

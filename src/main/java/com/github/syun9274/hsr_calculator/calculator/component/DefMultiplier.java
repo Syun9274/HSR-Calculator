@@ -35,7 +35,7 @@ public class DefMultiplier {
      *
      * @param character     공격하는 캐릭터 (레벨 정보 필요)
      * @param enemy         방어하는 적 (기본 방어력 정보 필요)
-     * @param charBuffDtos 아군이 받고 있는 버프 (방어력 무시)
+     * @param charBuffDtos  아군이 받고 있는 버프 (방어력 무시)
      * @param enemyBuffDtos 적이 받고 있는 버프 (방어력 증가, 방어력 감소)
      * @return 방어력으로 인한 데미지 감소 배수 (0 ~ 1 사이 값)
      */
@@ -51,7 +51,7 @@ public class DefMultiplier {
      * 적의 실제 방어력 계산
      * Base DEF × (1 + DEF% - DEF감소%) + Flat DEF
      *
-     * @param enemy    적 정보
+     * @param enemy         적 정보
      * @param enemyBuffDtos 적 버프 (방어력 증가, 방어력 감소, 방어력 무시)
      * @return 계산된 실제 방어력 (최소값 보장)
      */

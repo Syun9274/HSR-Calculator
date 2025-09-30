@@ -1,4 +1,4 @@
-package com.github.syun9274.hsr_calculator.model.character;
+package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.model.base.BaseAbilityEntity;
 import jakarta.persistence.*;
@@ -17,5 +17,12 @@ public class BasicAttack extends BaseAbilityEntity {
     private double extraMultiplier;
 
     private int extraDamage;
+
+    // 강화된 정보
+    private Double variantSkillMultiplier;
+
+    private Double variantExtraMultiplier;
+
+    private Integer variantExtraDamage;
 
 }

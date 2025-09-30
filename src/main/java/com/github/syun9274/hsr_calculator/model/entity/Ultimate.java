@@ -1,4 +1,4 @@
-package com.github.syun9274.hsr_calculator.model.character;
+package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.BuffListConverter;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
@@ -22,13 +22,12 @@ public class Ultimate extends BaseAbilityEntity {
     private EffectType effectType;
 
     // 공격 타입일 경우
-    private double skillMultiplier;
+    private Double skillMultiplier;
 
-    private double extraMultiplier;
+    private Double extraMultiplier;
 
-    private int extraDamage;
+    private Integer extraDamage;
 
-    // ---
     // 버프 타입일 경우
     @Convert(converter = BuffListConverter.class)
     @Column(columnDefinition = "TEXT")

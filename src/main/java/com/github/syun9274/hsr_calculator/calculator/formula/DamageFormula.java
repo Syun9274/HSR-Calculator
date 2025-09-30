@@ -6,6 +6,9 @@ public class DamageFormula {
     public static final double DEFAULT_CRIT_RATE = 0.05; // 5%
     public static final double DEFAULT_CRIT_DMG = 1.5; // 50%
 
+    // 크리티컬 확률 상한선
+    public static final double MAX_CRIT_RATE = 1; // 100%
+
     // 방어력 한계값
     public static final double MIN_DEF = 0;
 

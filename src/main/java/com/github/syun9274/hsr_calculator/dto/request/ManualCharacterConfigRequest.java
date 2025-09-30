@@ -1,6 +1,7 @@
 package com.github.syun9274.hsr_calculator.dto.request;
 
 import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
+import com.github.syun9274.hsr_calculator.dto.character.AbilityDto;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
@@ -35,5 +36,9 @@ public class ManualCharacterConfigRequest {
     private FatePath fatePath;
 
     private BasicAttackDto basicAttack;
+
+    private AbilityDto skill;
+
+    private AbilityDto ultimate;
 
 }

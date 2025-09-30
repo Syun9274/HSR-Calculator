@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.dto;
 
 import com.github.syun9274.hsr_calculator.dto.request.ManualEnemyConfigRequest;
-import com.github.syun9274.hsr_calculator.model.Enemy;
+import com.github.syun9274.hsr_calculator.model.entity.Enemy;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import lombok.Builder;
 

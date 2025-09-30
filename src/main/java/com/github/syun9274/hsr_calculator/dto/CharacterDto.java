@@ -1,48 +1,32 @@
 package com.github.syun9274.hsr_calculator.dto;
 
-import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
-import com.github.syun9274.hsr_calculator.dto.character.SkillDto;
-import com.github.syun9274.hsr_calculator.dto.character.UltimateDto;
+import com.github.syun9274.hsr_calculator.dto.character.*;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;
-import com.github.syun9274.hsr_calculator.model.Character;
+import com.github.syun9274.hsr_calculator.model.entity.Character;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record CharacterDto(
-        String name,                     // 캐릭터 명
-        int level,                       // 캐릭터 레벨
-        int baseHp,                      // 캐릭터 기초 체력
-        int baseAtk,                     // 캐릭터 기초 공격력
-        int baseDef,                     // 캐릭터 기초 방어력
-        Element element,                 // 캐릭터 원소
-        FatePath fatePath,               // 운명의 길
-        StatType scalingAttribute,         // 메인 계수 (hp, atk, def)
+        String name,                // 캐릭터 명
+        int level,                  // 캐릭터 레벨
+        int baseHp,                 // 캐릭터 기초 체력
+        int baseAtk,                // 캐릭터 기초 공격력
+        int baseDef,                // 캐릭터 기초 방어력
+        Element element,            // 캐릭터 원소
+        FatePath fatePath,          // 운명의 길
+        StatType scalingAttribute,  // 메인 계수 (hp, atk, def)
         BasicAttackDto basicAttack, // 일반 공격 정보
-        SkillDto skill,       // 전투 스킬 정보
-        UltimateDto ultimate // 필살기 정보
+        AbilityDto skill,           // 전투 스킬 정보
+        AbilityDto ultimate,        // 필살기 정보
+        AbilityDto talent,          // 특성
+        List<TraceDto> trace,             // 행적
+        MemospriteDto memosprite    // 기억정령
 ) {
-    /**
-     * CharacterEntity -> CharacterDto
-     */
-    public static CharacterDto from(Character character) {
-        return new CharacterDto(
-                character.getName(),
-                character.getLevel(),
-                character.getBaseHp(),
-                character.getBaseAtk(),
-                character.getBaseDef(),
-                character.getElement(),
-                character.getFatePath(),
-                character.getScalingAttribute(),
-                null,
-                null,
-                null
-        );
-    }
-
     /**
      * CharacterEntity -> CharacterDto
      */
@@ -57,6 +41,9 @@ public record CharacterDto(
                 request.getFatePath(),
                 request.getScalingAttribute(),
                 request.getBasicAttack(),
+                request.getSkill(),
+                request.getUltimate(),
+                null,
                 null,
                 null
         );

@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.model.base;
 
-import com.github.syun9274.hsr_calculator.model.Character;
+import com.github.syun9274.hsr_calculator.model.entity.Character;
 import jakarta.persistence.*;
 import lombok.Data;
 

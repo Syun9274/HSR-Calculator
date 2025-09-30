@@ -1,5 +1,6 @@
 package com.github.syun9274.hsr_calculator.calculator.component;
 
+import com.github.syun9274.hsr_calculator.calculator.formula.DamageFormula;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,11 @@ public class CritMultiplier {
      */
 
     public double getCritMultiplier(double critRate, double critDamage) {
+        critRate = Math.min(critRate, DamageFormula.MAX_CRIT_RATE);
         return 1 + (critRate * critDamage);
+    }
+
+    public double getCritMultiplierDefault() {
+        return 1 + (DamageFormula.DEFAULT_CRIT_RATE * DamageFormula.DEFAULT_CRIT_DMG);
     }
 }

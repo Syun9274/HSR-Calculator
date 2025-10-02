@@ -7,12 +7,14 @@ import com.github.syun9274.hsr_calculator.exception.CustomException;
 import com.github.syun9274.hsr_calculator.exception.ErrorCode;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
 import com.github.syun9274.hsr_calculator.model.enums.DamageType;
+import com.github.syun9274.hsr_calculator.model.enums.EffectType;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,47 +33,29 @@ public class DamageCalculator {
     private final UniversalDmgReductionMultiplier universalDmgReductionMultiplier;
     private final WeakenMultiplier weakenMultiplier;
 
-    public Map<DamageType, Integer> calculateOutgoingDmg(CharacterDto character,
+    public Map<DamageType, Integer> calculateFinalDamage(CharacterDto character,
                                                          EnemyDto enemy,
                                                          List<BuffDto> charBuffDtos,
                                                          List<BuffDto> enemyBuffDtos,
                                                          boolean isBroken) {
         try {
-            double outGoingDamage;
-
             // 공격 타입에 따라 달라지는 변수를 제외한 나머지 계산
-            double def = defMultiplier.getDefMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
-            double dmgTaken = dmgTakenMultiplier.getDmgTakenMultiplier(enemyBuffDtos);
-            double res = resMultiplier.getResMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
-            double uniDmgRed = universalDmgReductionMultiplier.getUniversalDmgReductionMultiplier(isBroken);
-            double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffDtos);
+            double commonMultiplier = calculateCommonArgument(
+                    character, enemy,
+                    charBuffDtos, enemyBuffDtos,
+                    isBroken);
 
-            outGoingDamage = def * dmgTaken * res * uniDmgRed * weak;
+            // 계산에 사용되는 캐릭터 스탯 값 - 버프 적용 후
+            double scalingAttribute = getScalingAttributeAfterBuffs(character, charBuffDtos);
+            log.info("Scaling attribute: {}", scalingAttribute);
 
-            // 캐릭터 스탯에 버프 일괄 적용
-            Map<StatType, Double> finalStats = statCalculator.calculateFinalStats(
-                    character.baseHp(),
-                    character.baseAtk(),
-                    character.baseDef(),
-                    charBuffDtos);
+            Map<DamageType, Integer> finalDamage = new HashMap<>();
 
-            // 계산에 사용되는 캐릭터 스탯 추출
-            double scalingAttribute = switch (character.scalingAttribute()) {
-                case StatType.HP -> finalStats.get(StatType.HP);
-                case StatType.DEF -> finalStats.get(StatType.DEF);
-                default -> finalStats.get(StatType.ATK);
-            };
+            finalDamage.putAll(calculateBasicAttackDamages(commonMultiplier, scalingAttribute, character, charBuffDtos));
+            finalDamage.putAll(calculateSkillDamages(commonMultiplier, scalingAttribute, character, charBuffDtos));
+            finalDamage.putAll(calculateUltimateDamages(commonMultiplier, scalingAttribute, character, charBuffDtos));
 
-            double finalDamage = outGoingDamage *
-                    baseDmg.getBaseDmg(
-                            character.basicAttack().skillMultiplier(),
-                            character.basicAttack().extraMultiplier(),
-                            scalingAttribute,
-                            character.basicAttack().extraDamage()) *
-                    dmgMultiplier.getBasicAttackDmgMultiplier(character.element(), charBuffDtos);
-
-            return Map.of(
-                    DamageType.BASIC_NORMAL, MathUtil.toGameDamageInt(finalDamage));
+            return finalDamage;
 
         } catch (ArithmeticException e) {
             log.error("Damage calculation overflow: {}", e.getMessage());
@@ -81,5 +65,155 @@ public class DamageCalculator {
             log.error("Damage calculation error: {}", e.getMessage());
             throw new CustomException(ErrorCode.CALCULATION_ERROR);
         }
+    }
+
+    /**
+     * 스킬 타입에 관계없이 공통으로 적용되는 데미지 배수를 계산한다.
+     * </p>
+     * 방어력, 피해 증가, 저항, 범용 피해 감소, 약화 배수를 포함한다.
+     */
+    private double calculateCommonArgument(CharacterDto character,
+                                           EnemyDto enemy,
+                                           List<BuffDto> charBuffDtos,
+                                           List<BuffDto> enemyBuffDtos,
+                                           boolean isBroken) {
+        // 공격 타입에 따라 달라지는 변수를 제외한 나머지 계산
+        double def = defMultiplier.getDefMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
+        double dmgTaken = dmgTakenMultiplier.getDmgTakenMultiplier(enemyBuffDtos);
+        double res = resMultiplier.getResMultiplier(character, enemy, charBuffDtos, enemyBuffDtos);
+        double uniDmgRed = universalDmgReductionMultiplier.getUniversalDmgReductionMultiplier(isBroken);
+        double weak = weakenMultiplier.getWeakenMultiplier(enemyBuffDtos);
+
+        return def * dmgTaken * res * uniDmgRed * weak;
+    }
+
+    /**
+     * 캐릭터의 스케일링 스탯을 버프 적용 후 값으로 계산한다.
+     * </p>
+     * 캐릭터의 스케일링 속성(공격력/체력/방어력)에 따라 해당 스탯을 반환한다.
+     */
+    private double getScalingAttributeAfterBuffs(CharacterDto character, List<BuffDto> buffDtos) {
+        // 캐릭터 스탯에 버프 일괄 적용
+        Map<StatType, Double> finalStats = statCalculator.calculateFinalStats(
+                character.baseHp(),
+                character.baseAtk(),
+                character.baseDef(),
+                buffDtos);
+
+        // 계산에 사용되는 캐릭터 스탯 추출
+        return switch (character.scalingAttribute()) {
+            case StatType.HP -> finalStats.get(StatType.HP);
+            case StatType.DEF -> finalStats.get(StatType.DEF);
+            default -> finalStats.get(StatType.ATK);
+        };
+    }
+
+    private Map<DamageType, Integer> calculateBasicAttackDamages(double commonMultiplier,
+                                                                 double scalingAttribute,
+                                                                 CharacterDto character,
+                                                                 List<BuffDto> charBuffDtos) {
+        Map<DamageType, Integer> results = new HashMap<>();
+
+        commonMultiplier *= dmgMultiplier.getBasicAttackDmgMultiplier(character.element(), charBuffDtos);
+        commonMultiplier *= baseDmg.getBaseDmg(
+                character.basicAttack().skillMultiplier(),
+                character.basicAttack().extraMultiplier(),
+                scalingAttribute,
+                character.basicAttack().extraDamage());
+
+        results.put(DamageType.BASIC_NORMAL,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, false)));
+
+        results.put(DamageType.BASIC_CRIT,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, true)));
+
+        results.put(DamageType.BASIC_EXPECTED,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos)));
+
+        return results;
+    }
+
+    private Map<DamageType, Integer> calculateSkillDamages(double commonMultiplier,
+                                                           double scalingAttribute,
+                                                           CharacterDto character,
+                                                           List<BuffDto> charBuffDtos) {
+        if (character.skill().effectType() != EffectType.DAMAGE) {
+            return Map.of(
+                    DamageType.SKILL_NORMAL, 0,
+                    DamageType.SKILL_CRIT, 0,
+                    DamageType.SKILL_EXPECTED, 0
+            );
+        }
+
+        Map<DamageType, Integer> results = new HashMap<>();
+
+        commonMultiplier *= dmgMultiplier.getSkillDmgMultiplier(character.element(), charBuffDtos);
+        commonMultiplier *= baseDmg.getBaseDmg(
+                character.skill().skillMultiplier(),
+                character.skill().extraMultiplier(),
+                scalingAttribute,
+                character.skill().extraDamage());
+
+        results.put(DamageType.SKILL_NORMAL,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, false)));
+
+        results.put(DamageType.SKILL_CRIT,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, true)));
+
+        results.put(DamageType.SKILL_EXPECTED,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos)));
+
+        return results;
+    }
+
+    private Map<DamageType, Integer> calculateUltimateDamages(double commonMultiplier,
+                                                              double scalingAttribute,
+                                                              CharacterDto character,
+                                                              List<BuffDto> charBuffDtos) {
+        if (character.ultimate().effectType() != EffectType.DAMAGE) {
+            return Map.of(
+                    DamageType.ULTIMATE_NORMAL, 0,
+                    DamageType.ULTIMATE_CRIT, 0,
+                    DamageType.ULTIMATE_EXPECTED, 0
+            );
+        }
+
+        Map<DamageType, Integer> results = new HashMap<>();
+
+        commonMultiplier *= dmgMultiplier.getUltimateDmgMultiplier(character.element(), charBuffDtos);
+        commonMultiplier *= baseDmg.getBaseDmg(
+                character.ultimate().skillMultiplier(),
+                character.ultimate().extraMultiplier(),
+                scalingAttribute,
+                character.ultimate().extraDamage());
+
+        results.put(DamageType.ULTIMATE_NORMAL,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, false)));
+
+        results.put(DamageType.ULTIMATE_CRIT,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos, true)));
+
+        results.put(DamageType.ULTIMATE_EXPECTED,
+                MathUtil.toGameDamageInt(
+                        commonMultiplier *
+                        critMultiplier.getCritMultiplier(charBuffDtos)));
+
+        return results;
     }
 }

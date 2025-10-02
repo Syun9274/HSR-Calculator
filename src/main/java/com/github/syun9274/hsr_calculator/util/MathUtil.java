@@ -56,7 +56,7 @@ public class MathUtil {
 
         return buffDtos.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
-                .mapToInt(buff -> (int) buff.buffValue())
+                .mapToInt(buff -> buff.buffValue().intValue())
                 .sum();
     }
 

@@ -25,9 +25,9 @@ public enum BuffType {
     WIND_DAMAGE_BOOST("바람 속성 피해 증가"),
     QUANTUM_DAMAGE_BOOST("양자 속성 피해 증가"),
     IMAGINARY_DAMAGE_BOOST("허수 속성 피해 증가"),
-    DAMAGE_BOOST("가하는 피해 증가"),
 
     // -- 스킬 별 피해 증가
+    DAMAGE_BOOST("가하는 피해 증가"),
     BASIC_ATTACK_DAMAGE_BOOST("일반 공격 피해 증가"),
     SKILL_DAMAGE_BOOST("전투 스킬 피해 증가"),
     ULTIMATE_DAMAGE_BOOST("필살기 피해 증가"),
@@ -36,7 +36,7 @@ public enum BuffType {
     DEF_IGNORE("방어 무시"),
     RES_PEN("속성 저항 관통"),
 
-    // -- 적 버프 효과 (target = enemy)
+    // -- 적 버프 효과
     DAMAGE_TAKEN_INCREASE("받는 피해 증가"),
     DEF_REDUCTION("방어력 감소"),
     RES_REDUCTION("속성 저항 감소"),
@@ -48,4 +48,5 @@ public enum BuffType {
     BuffType(String krDescription) {
         this.krDescription = krDescription;
     }
+
 }

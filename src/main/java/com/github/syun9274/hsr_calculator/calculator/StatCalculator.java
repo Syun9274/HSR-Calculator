@@ -58,5 +58,25 @@ public class StatCalculator {
                 StatType.DEF, calculateFinalDef(baseDef, buffDtos)
         );
     }
+
+    /**
+     * 조건부 스탯 증가 버프를 계산한다.
+     * 예: 체력 1000당 공격력 0.8% 증가, 최대 80%
+     *
+     * @param baseValue     기준이 되는 스탯 값
+     * @param perValue      기준 값 (예: 1000)
+     * @param increaseValue 증가 값 (예: 0.8%)
+     * @param maxValue      최대 증가 값 (예: 80%)
+     * @return 계산된 증가 퍼센트
+     */
+    public static double calculateConditionalStatBonus(double baseValue,
+                                                       double perValue,
+                                                       double increaseValue,
+                                                       double maxValue) {
+        double ratio = baseValue / perValue;
+        double calculatedBonus = ratio * increaseValue;
+
+        return Math.min(calculatedBonus, maxValue);
+    }
 }
 

@@ -67,15 +67,15 @@ class DamageCalculatorTest {
 
         // given - 5. 기타 아군 버프 목록
         List<BuffDto> otherBuffDtos = Arrays.asList(
-                new BuffDto(BuffType.DAMAGE_BOOST, 95),
-                new BuffDto(BuffType.RES_PEN, 24)
+                new BuffDto(BuffType.DAMAGE_BOOST, 95.0),
+                new BuffDto(BuffType.RES_PEN, 24.0)
         );
 
         // given - 6. 적이 받고 있는 버프
         List<BuffDto> enemyBuffDtos = Arrays.asList(
-                new BuffDto(BuffType.DEF_REDUCTION, 8),      // 방어력 감소
-                new BuffDto(BuffType.DEF_REDUCTION, 16),     // 방어력 감소
-                new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, 40)  // 받는 피해 증가
+                new BuffDto(BuffType.DEF_REDUCTION, 8.0),      // 방어력 감소
+                new BuffDto(BuffType.DEF_REDUCTION, 16.0),     // 방어력 감소
+                new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, 40.0)  // 받는 피해 증가
         );
 
         // given - 캐릭터 일반 공격 DTO 생성
@@ -113,13 +113,13 @@ class DamageCalculatorTest {
         // given - 캐릭터 버프
         List<BuffDto> charBuffDtos = new ArrayList<>();
         charBuffDtos.add(new BuffDto(BuffType.DAMAGE_BOOST, damageBoost));
-        charBuffDtos.add(new BuffDto(BuffType.BASIC_ATTACK_DAMAGE_BOOST, 0));
+        charBuffDtos.add(new BuffDto(BuffType.BASIC_ATTACK_DAMAGE_BOOST, 0.0));
         charBuffDtos.addAll(otherBuffDtos); // 기타 버프 추가
 
         boolean isBroken = false; // 약점 격파 상태 아님
 
         // when
-        Map<DamageType, Integer> result = damageCalculator.calculateOutgoingDmg(
+        Map<DamageType, Integer> result = damageCalculator.calculateFinalDamage(
                 character, enemy, charBuffDtos, enemyBuffDtos, isBroken);
 
         // then

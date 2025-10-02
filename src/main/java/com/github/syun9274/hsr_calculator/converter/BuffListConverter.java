@@ -1,10 +1,12 @@
 package com.github.syun9274.hsr_calculator.converter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
  * <p>
  * 스킬/필살기에 여러 버프가 붙을 때 데이터베이스에 저장하기 위해 사용
  */
+@Slf4j
 @Converter
 public class BuffListConverter implements AttributeConverter<List<BuffDto>, String> {
     private final ObjectMapper mapper = new ObjectMapper();
@@ -28,7 +31,8 @@ public class BuffListConverter implements AttributeConverter<List<BuffDto>, Stri
     public String convertToDatabaseColumn(List<BuffDto> buffs) {
         try {
             return mapper.writeValueAsString(buffs);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
+            log.error("Failed to serialize BuffDto list to JSON", e);
             return "[]";
         }
     }
@@ -44,7 +48,8 @@ public class BuffListConverter implements AttributeConverter<List<BuffDto>, Stri
         try {
             return mapper.readValue(json, new TypeReference<List<BuffDto>>() {
             });
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
+            log.error("Failed to serialize BuffDto list to JSON", e);
             return new ArrayList<>();
         }
     }

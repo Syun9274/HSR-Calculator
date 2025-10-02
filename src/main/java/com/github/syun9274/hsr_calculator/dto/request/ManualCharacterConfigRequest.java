@@ -1,6 +1,7 @@
 package com.github.syun9274.hsr_calculator.dto.request;
 
-import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
+import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
+import com.github.syun9274.hsr_calculator.dto.character.AbilityDto;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
@@ -34,6 +35,10 @@ public class ManualCharacterConfigRequest {
     @NotNull(message = "캐릭터 운명의 길 정보는 필수입니다.")
     private FatePath fatePath;
 
-    private CharacterAbilityDto basicAttack;
+    private BasicAttackDto basicAttack;
+
+    private AbilityDto skill;
+
+    private AbilityDto ultimate;
 
 }

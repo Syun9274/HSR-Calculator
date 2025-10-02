@@ -1,6 +1,7 @@
-package com.github.syun9274.hsr_calculator.model;
+package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.ElementListConverter;
+import com.github.syun9274.hsr_calculator.model.base.BaseEntity;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import jakarta.persistence.*;
 import lombok.Data;

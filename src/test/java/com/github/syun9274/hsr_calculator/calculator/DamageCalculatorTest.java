@@ -2,7 +2,7 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
 import com.github.syun9274.hsr_calculator.dto.BuffDto;
-import com.github.syun9274.hsr_calculator.dto.CharacterAbilityDto;
+import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
 import com.github.syun9274.hsr_calculator.dto.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.*;
@@ -67,39 +67,36 @@ class DamageCalculatorTest {
 
         // given - 5. 기타 아군 버프 목록
         List<BuffDto> otherBuffDtos = Arrays.asList(
-                new BuffDto(BuffType.DAMAGE_BOOST, 95),
-                new BuffDto(BuffType.RES_PEN, 24)
+                new BuffDto(BuffType.DAMAGE_BOOST, 95.0),
+                new BuffDto(BuffType.RES_PEN, 24.0)
         );
 
         // given - 6. 적이 받고 있는 버프
         List<BuffDto> enemyBuffDtos = Arrays.asList(
-                new BuffDto(BuffType.DEF_REDUCTION, 8),      // 방어력 감소
-                new BuffDto(BuffType.DEF_REDUCTION, 16),     // 방어력 감소
-                new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, 40)  // 받는 피해 증가
+                new BuffDto(BuffType.DEF_REDUCTION, 8.0),      // 방어력 감소
+                new BuffDto(BuffType.DEF_REDUCTION, 16.0),     // 방어력 감소
+                new BuffDto(BuffType.DAMAGE_TAKEN_INCREASE, 40.0)  // 받는 피해 증가
         );
 
-        // given - 캐릭터 스킬 DTO 생성
-        CharacterAbilityDto basicAttack = CharacterAbilityDto.builder()
-                .abilityType(AbilityType.BASIC)
-                .skillMultiplier(skillMultiplier)
-                .extraMultiplier(extraMultiplier)
-                .extraDamage(extraDamage)
-                .build();
+        // given - 캐릭터 일반 공격 DTO 생성
+        BasicAttackDto basicAttack = new BasicAttackDto(
+                skillMultiplier,
+                extraMultiplier,
+                extraDamage);
 
         // given - 캐릭터 DTO 생성
         CharacterDto character = CharacterDto.builder()
                 .name("테스트 캐릭터")
-                .level(80)
+                .level(characterLevel)
                 .baseHp(1000)
                 .baseAtk(finalStats)
                 .baseDef(500)
-                .element(Element.PHYSICAL)
-                .fatePath(FatePath.DESTRUCTION)
+                .element(characterElement)
+                .fatePath(characterFatePath)
                 .scalingAttribute(StatType.ATK)
                 .basicAttack(basicAttack)
                 .skill(null)
                 .ultimate(null)
-                .traces(List.of().toArray(new CharacterAbilityDto[0]))
                 .build();
 
         // given - 적 DTO 생성
@@ -116,13 +113,13 @@ class DamageCalculatorTest {
         // given - 캐릭터 버프
         List<BuffDto> charBuffDtos = new ArrayList<>();
         charBuffDtos.add(new BuffDto(BuffType.DAMAGE_BOOST, damageBoost));
-        charBuffDtos.add(new BuffDto(BuffType.BASIC_ATTACK_DAMAGE_BOOST, 0));
+        charBuffDtos.add(new BuffDto(BuffType.BASIC_ATTACK_DAMAGE_BOOST, 0.0));
         charBuffDtos.addAll(otherBuffDtos); // 기타 버프 추가
 
         boolean isBroken = false; // 약점 격파 상태 아님
 
         // when
-        Map<DamageType, Integer> result = damageCalculator.calculateOutgoingDmg(
+        Map<DamageType, Integer> result = damageCalculator.calculateFinalDamage(
                 character, enemy, charBuffDtos, enemyBuffDtos, isBroken);
 
         // then

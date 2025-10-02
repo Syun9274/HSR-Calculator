@@ -10,17 +10,25 @@ Content-Type: application/json
   "character": {
     "name": "클라라",
     "level": 80,
-    "baseHp": 5000,
-    "baseAtk": 2321,
-    "baseDef": 1000,
+    "baseHp": 2406,
+    "baseAtk": 1319,
+    "baseDef": 882,
     "scalingAttribute": "ATK",
     "element": "PHYSICAL",
     "fatePath": "DESTRUCTION",
     "basicAttack": {
-      "abilityType": "BASIC",
       "skillMultiplier": 1,
       "extraMultiplier": 0,
       "extraDamage": 0
+    },
+    "skill": {
+      "effectType": "DAMAGE",
+      "skillMultiplier": 1.26,
+      "extraMultiplier": 0,
+      "extraDamage": 0
+    },
+    "ultimate": {
+      "effectType": "BUFF"
     }
   },
   "enemy": {
@@ -34,16 +42,23 @@ Content-Type: application/json
   },
   "characterBuffs": {
     "buffs": [
-      {"buffType": "DAMAGE_BOOST", "buffValue": 14.4},
-      {"buffType": "DAMAGE_BOOST", "buffValue": 95},
-      {"buffType": "RES_PEN", "buffValue": 24}
+      {"buffType": "PHYSICAL_DAMAGE_BOOST", "buffValue": 14.4},
+      {"buffType": "ATK_PERCENT", "buffValue": 24.0},
+      {"buffType": "ATK_PERCENT", "buffValue": 28.0},
+      {"buffType": "ATK_PERCENT", "buffValue": 12.0},
+      {"buffType": "ATK_PERCENT", "buffValue": 12.0},
+      {"buffType": "DAMAGE_BOOST", "buffValue": 45.0},
+      {"buffType": "RES_PEN", "buffValue": 24.0},
+      {"buffType": "CRIT_RATE_PERCENT", "buffValue": 20.0},
+      {"buffType": "CRIT_DMG_PERCENT", "buffValue": 48.0},
+      {"buffType": "CRIT_DMG_PERCENT", "buffValue": 18.0}
     ]
   },
   "enemyBuffs": {
     "buffs": [
-      {"buffType": "DEF_REDUCTION", "buffValue": 8},
-      {"buffType": "DEF_REDUCTION", "buffValue": 16},
-      {"buffType": "DAMAGE_TAKEN_INCREASE", "buffValue": 40}
+      {"buffType": "DEF_REDUCTION", "buffValue": 8.0},
+      {"buffType": "DEF_REDUCTION", "buffValue": 16.0},
+      {"buffType": "DAMAGE_TAKEN_INCREASE", "buffValue": 40.0}
     ]
   }
 }

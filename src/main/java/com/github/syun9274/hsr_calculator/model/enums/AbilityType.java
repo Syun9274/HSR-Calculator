@@ -13,4 +13,5 @@ public enum AbilityType {
     AbilityType(String krDescription) {
         this.krDescription = krDescription;
     }
+
 }

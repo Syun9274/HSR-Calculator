@@ -20,7 +20,7 @@ public class DamageCalculationService {
     public Map<DamageType, Integer> calculateDamage(CharacterDto character, EnemyDto enemy,
                                                     List<BuffDto> charBuffs, List<BuffDto> enemyBuffs,
                                                     boolean isBroken) {
-        return damageCalculator.calculateOutgoingDmg(
+        return damageCalculator.calculateFinalDamage(
                 character, enemy, charBuffs, enemyBuffs, isBroken);
     }
 }

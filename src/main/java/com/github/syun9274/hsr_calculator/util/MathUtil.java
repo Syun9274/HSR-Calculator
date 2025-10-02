@@ -56,7 +56,8 @@ public class MathUtil {
 
         return buffDtos.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
-                .mapToInt(buff -> (int) buff.buffValue())
+                .filter(buff -> buff.buffValue() != null)
+                .mapToInt(buff -> buff.buffValue().intValue())
                 .sum();
     }
 
@@ -74,6 +75,7 @@ public class MathUtil {
 
         return buffDtos.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
+                .filter(buff -> buff.buffValue() != null)
                 .mapToDouble(buff -> buff.buffValue() / 100.0)  // percentToDecimal 효과 적용
                 .sum();
     }

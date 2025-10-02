@@ -1,10 +1,34 @@
 package com.github.syun9274.hsr_calculator.dto;
 
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
+import com.github.syun9274.hsr_calculator.model.enums.StatType;
 
 public record BuffDto(
-        BuffType buffType, // 버프 타입 (ex. 가하는 피해 증가)
-        double buffValue   // 버프 수치 (백분율 형태 (ex. 10.0))
+        BuffType buffType,
+        Double buffValue,           // 일반 버프용
+        StatType sourceStatType,
+        Double perValue,
+        Double increaseValue,
+        Double maxValue
 ) {
+    // 일반 버프 생성자
+    public BuffDto(BuffType buffType, Double buffValue) {
+        this(buffType, buffValue, null, null, null, null);
+    }
 
+    /**
+     * 조건부 버프 생성자
+     * </p>
+     * 예시 - 체력 1000당 공격력 0.8% 증가 (최대 80%)
+     *
+     * @param buffType       ATK_PERCENT
+     * @param sourceStatType HP
+     * @param perValue       1000
+     * @param increaseValue  0.8
+     * @param maxValue       80
+     */
+    public BuffDto(BuffType buffType, StatType sourceStatType,
+                   Double perValue, Double increaseValue, Double maxValue) {
+        this(buffType, null, sourceStatType, perValue, increaseValue, maxValue);
+    }
 }

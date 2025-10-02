@@ -29,9 +29,9 @@ public class UniversalDmgReductionMultiplier {
      */
     private double weaknessMultiplier(boolean isBroken) {
         if (isBroken) {
-            return 1;
+            return DamageFormula.NO_TOUGHNESS_DAMAGE_REDUCTION;
         } else {
-            return 1 - DamageFormula.TOUGHNESS_DAMAGE_REDUCTION;
+            return DamageFormula.TOUGHNESS_DAMAGE_REDUCTION;
         }
     }
 }

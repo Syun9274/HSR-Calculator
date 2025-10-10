@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.util;
 
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import lombok.experimental.UtilityClass;
 
@@ -45,16 +45,16 @@ public class MathUtil {
     /**
      * 지정된 버프 타입들로 필터링된 버프 목록에서 고정 버프 값 합계 계산
      *
-     * @param buffDtos  버프 타입과 값을 포함하는 버프 객체 목록
+     * @param buffs  버프 타입과 값을 포함하는 버프 객체 목록
      * @param buffTypes 버프를 필터링할 버프 타입 배열
      * @return 지정된 버프 타입들에 대한 고정 버프 값들의 총합 (정수)
      */
-    public static int sumFlatBuffs(List<BuffDto> buffDtos, BuffType... buffTypes) {
-        if (buffDtos == null || buffDtos.isEmpty()) {
+    public static int sumFlatBuffs(List<Buff> buffs, BuffType... buffTypes) {
+        if (buffs == null || buffs.isEmpty()) {
             return 0;
         }
 
-        return buffDtos.stream()
+        return buffs.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
                 .filter(buff -> buff.buffValue() != null)
                 .mapToInt(buff -> buff.buffValue().intValue())
@@ -64,16 +64,16 @@ public class MathUtil {
     /**
      * 지정된 버프 타입들로 필터링된 버프 목록에서 퍼센트 버프 값 합계 계산
      *
-     * @param buffDtos  버프 타입과 값을 포함하는 버프 객체 목록
+     * @param buffs  버프 타입과 값을 포함하는 버프 객체 목록
      * @param buffTypes 버프를 필터링할 버프 타입 배열
      * @return 지정된 버프 타입들에 대한 퍼센트 버프 값들의 총합 (소수점 형태)
      */
-    public static double sumPercentBuffs(List<BuffDto> buffDtos, BuffType... buffTypes) {
-        if (buffDtos == null || buffDtos.isEmpty()) {
+    public static double sumPercentBuffs(List<Buff> buffs, BuffType... buffTypes) {
+        if (buffs == null || buffs.isEmpty()) {
             return 0;
         }
 
-        return buffDtos.stream()
+        return buffs.stream()
                 .filter(buff -> Arrays.stream(buffTypes).anyMatch(type -> buff.buffType() == type))
                 .filter(buff -> buff.buffValue() != null)
                 .mapToDouble(buff -> buff.buffValue() / 100.0)  // percentToDecimal 효과 적용

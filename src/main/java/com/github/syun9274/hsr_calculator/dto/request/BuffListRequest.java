@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.dto.request;
 
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
@@ -28,9 +28,9 @@ public class BuffListRequest {
             double buffValue
     ) {}
 
-    public List<BuffDto> toBuffList() {
+    public List<Buff> toBuffList() {
         return buffs.stream()
-                .map(dto -> new BuffDto(dto.buffType, dto.buffValue))
+                .map(dto -> new Buff(dto.buffType, dto.buffValue))
                 .toList();
     }
 }

@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.calculator.component;
 
 import com.github.syun9274.hsr_calculator.calculator.formula.DamageFormula;
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,21 +22,21 @@ public class CritMultiplier {
     3. 평균 기대값 데미지
      */
 
-    public double getCritMultiplier(List<BuffDto> buffDtos) {
+    public double getCritMultiplier(List<Buff> buffs) {
 
         double critRate = DamageFormula.DEFAULT_CRIT_RATE +
-                MathUtil.sumPercentBuffs(buffDtos, BuffType.CRIT_RATE_PERCENT);
+                MathUtil.sumPercentBuffs(buffs, BuffType.CRIT_RATE_PERCENT);
         double critDamage = DamageFormula.DEFAULT_CRIT_DMG +
-                MathUtil.sumPercentBuffs(buffDtos, BuffType.CRIT_DMG_PERCENT);
+                MathUtil.sumPercentBuffs(buffs, BuffType.CRIT_DMG_PERCENT);
 
         critRate = Math.min(critRate, DamageFormula.MAX_CRIT_RATE);
         return 1 + (critRate * critDamage);
     }
 
-    public double getCritMultiplier(List<BuffDto> buffDtos, boolean isCrit) {
+    public double getCritMultiplier(List<Buff> buffs, boolean isCrit) {
 
         double critDamage = DamageFormula.DEFAULT_CRIT_DMG +
-                MathUtil.sumPercentBuffs(buffDtos, BuffType.CRIT_DMG_PERCENT);
+                MathUtil.sumPercentBuffs(buffs, BuffType.CRIT_DMG_PERCENT);
 
         if (isCrit) {
             return 1 + critDamage;

@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.facade;
 
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.dto.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.dto.request.BuffListRequest;
@@ -47,8 +47,8 @@ public class GameFacade {
         EnemyDto enemyDto = enemyService.configureEnemyManually(enemyReq);
 
         // BuffList로 변환
-        List<BuffDto> charBuffs = charBuffListReq.toBuffList();
-        List<BuffDto> enemyBuffs = enemyBuffListReq.toBuffList();
+        List<Buff> charBuffs = charBuffListReq.toBuffList();
+        List<Buff> enemyBuffs = enemyBuffListReq.toBuffList();
 
         Map<DamageType, Integer> finalDamage = damageCalculationService.calculateDamage(
                 characterDto, enemyDto, charBuffs, enemyBuffs, enemyDto.isBroken()

@@ -1,6 +1,6 @@
 package com.github.syun9274.hsr_calculator.calculator.component;
 
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_calculator.util.MathUtil;
 import org.springframework.stereotype.Component;
@@ -20,11 +20,11 @@ public class WeakenMultiplier {
     Weaken Multiplier = 100% - Weaken%
      */
 
-    public double getWeakenMultiplier(List<BuffDto> buffDtos) {
-        return 1 - calculateWeakenMultiplier(buffDtos);
+    public double getWeakenMultiplier(List<Buff> buffs) {
+        return 1 - calculateWeakenMultiplier(buffs);
     }
 
-    private double calculateWeakenMultiplier(List<BuffDto> buffDtos) {
-        return MathUtil.sumPercentBuffs(buffDtos, BuffType.WEAKEN);
+    private double calculateWeakenMultiplier(List<Buff> buffs) {
+        return MathUtil.sumPercentBuffs(buffs, BuffType.WEAKEN);
     }
 }

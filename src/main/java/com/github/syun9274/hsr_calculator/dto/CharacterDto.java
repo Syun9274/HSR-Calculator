@@ -2,7 +2,6 @@ package com.github.syun9274.hsr_calculator.dto;
 
 import com.github.syun9274.hsr_calculator.dto.character.*;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;
-import com.github.syun9274.hsr_calculator.model.entity.Character;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
@@ -24,7 +23,7 @@ public record CharacterDto(
         AbilityDto skill,           // 전투 스킬 정보
         AbilityDto ultimate,        // 필살기 정보
         AbilityDto talent,          // 특성
-        List<TraceDto> trace,             // 행적
+        List<TraceDto> trace,       // 행적
         MemospriteDto memosprite    // 기억정령
 ) {
     /**

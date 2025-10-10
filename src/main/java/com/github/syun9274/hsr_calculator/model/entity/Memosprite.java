@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.BuffListConverter;
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.base.BaseAbilityEntity;
 import com.github.syun9274.hsr_calculator.model.enums.CalculationType;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
@@ -36,6 +36,6 @@ public class Memosprite extends BaseAbilityEntity {
 
     @Convert(converter = BuffListConverter.class)
     @Column(columnDefinition = "TEXT")
-    private List<BuffDto> spriteBuffs = new ArrayList<>();
+    private List<Buff> spriteBuffs = new ArrayList<>();
 
 }

@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.BuffListConverter;
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.model.enums.TraceType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,6 +27,6 @@ public class Trace {
     private TraceType traceType;
 
     @Convert(converter = BuffListConverter.class)
-    private List<BuffDto> buffs = new ArrayList<>();
+    private List<Buff> buffs = new ArrayList<>();
 
 }

@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.calculator.component;
 
 import com.github.syun9274.hsr_calculator.calculator.formula.DamageFormula;
-import com.github.syun9274.hsr_calculator.dto.BuffDto;
+import com.github.syun9274.hsr_calculator.dto.Buff;
 import com.github.syun9274.hsr_calculator.dto.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
@@ -36,17 +36,17 @@ public class ResMultiplier {
      *
      * @param character     공격하는 캐릭터 (원소 속성 확인용)
      * @param enemy         방어하는 적 (약점/저항 속성 확인용)
-     * @param charBuffDtos  캐릭터의 버프 목록 (속성 저항 관통 효과)
-     * @param enemyBuffDtos 적의 디버프 목록 (속성 저항 감소 효과)
+     * @param charBuffs  캐릭터의 버프 목록 (속성 저항 관통 효과)
+     * @param enemyBuffs 적의 디버프 목록 (속성 저항 감소 효과)
      * @return 저항으로 인한 데미지 배수 (0.1 ~ 1.9 범위로 제한)
      */
     public double getResMultiplier(CharacterDto character, EnemyDto enemy,
-                                   List<BuffDto> charBuffDtos, List<BuffDto> enemyBuffDtos) {
+                                   List<Buff> charBuffs, List<Buff> enemyBuffs) {
         double resPercent = calculateResPercent(
                 character.element(),
                 enemy.weaknessElements(),    // List<Element>
                 enemy.resistElements());     // List<Element>
-        double resPen = calculateResPen(charBuffDtos, enemyBuffDtos);
+        double resPen = calculateResPen(charBuffs, enemyBuffs);
         double res = 1 - (resPercent - resPen);
 
         // Math.clamp(value, min, max)는 값을 min과 max 사이로 제한해주는 메서드
@@ -74,8 +74,8 @@ public class ResMultiplier {
         }
     }
 
-    private double calculateResPen(List<BuffDto> charBuffDtos, List<BuffDto> enemyBuffDtos) {
-        return MathUtil.sumPercentBuffs(charBuffDtos, BuffType.RES_PEN)
-                + MathUtil.sumPercentBuffs(enemyBuffDtos, BuffType.RES_REDUCTION);
+    private double calculateResPen(List<Buff> charBuffs, List<Buff> enemyBuffs) {
+        return MathUtil.sumPercentBuffs(charBuffs, BuffType.RES_PEN)
+                + MathUtil.sumPercentBuffs(enemyBuffs, BuffType.RES_REDUCTION);
     }
 }

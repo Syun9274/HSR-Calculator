@@ -155,10 +155,10 @@ public class DamageCalculator {
 
         commonMultiplier *= dmgMultiplier.getSkillDmgMultiplier(character.element(), charBuffs);
         commonMultiplier *= baseDmg.getBaseDmg(
-                character.skill().skillMultiplier(),
-                character.skill().extraMultiplier(),
+                character.skill().damageInfo().skillMultiplier(),
+                character.skill().damageInfo().extraMultiplier(),
                 scalingAttribute,
-                character.skill().extraDamage());
+                character.skill().damageInfo().extraDamage());
 
         results.put(DamageType.SKILL_NORMAL,
                 MathUtil.toGameDamageInt(
@@ -194,10 +194,10 @@ public class DamageCalculator {
 
         commonMultiplier *= dmgMultiplier.getUltimateDmgMultiplier(character.element(), charBuffs);
         commonMultiplier *= baseDmg.getBaseDmg(
-                character.ultimate().skillMultiplier(),
-                character.ultimate().extraMultiplier(),
+                character.ultimate().damageInfo().skillMultiplier(),
+                character.ultimate().damageInfo().extraMultiplier(),
                 scalingAttribute,
-                character.ultimate().extraDamage());
+                character.ultimate().damageInfo().extraDamage());
 
         results.put(DamageType.ULTIMATE_NORMAL,
                 MathUtil.toGameDamageInt(

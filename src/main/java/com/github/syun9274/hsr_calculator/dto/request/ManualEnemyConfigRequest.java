@@ -22,6 +22,8 @@ public class ManualEnemyConfigRequest {
     @Min(value = 0, message = "기초 방어력은 0 이상이어야 합니다.")
     private int baseDef;
 
+    private int spd;
+
     @NotNull(message = "약점 속성 목록은 필수입니다.")
     @Size(min = 1, message = "최소 1개 이상의 약점 속성이 필요합니다.")
     private List<Element> weaknessElements;

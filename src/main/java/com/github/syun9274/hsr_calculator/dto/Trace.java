@@ -9,5 +9,11 @@ public record Trace(
         DamageInfo damageInfo,
         List<Buff> buffs
 ) {
+    public Trace(TraceType traceType, DamageInfo damageInfo) {
+        this(traceType, damageInfo, null);
+    }
 
+    public Trace(TraceType traceType, List<Buff> buffs) {
+        this(traceType, null, buffs);
+    }
 }

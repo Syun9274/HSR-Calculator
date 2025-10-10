@@ -17,6 +17,7 @@ public record CharacterDto(
         int baseHp,                 // 캐릭터 기초 체력
         int baseAtk,                // 캐릭터 기초 공격력
         int baseDef,                // 캐릭터 기초 방어력
+        int spd,                    // 캐릭터 기초 속도
         Element element,            // 캐릭터 원소
         FatePath fatePath,          // 운명의 길
         StatType scalingAttribute,  // 메인 계수 (hp, atk, def)
@@ -37,6 +38,7 @@ public record CharacterDto(
                 request.getBaseHp(),
                 request.getBaseAtk(),
                 request.getBaseDef(),
+                request.getSpd(),
                 request.getElement(),
                 request.getFatePath(),
                 request.getScalingAttribute(),

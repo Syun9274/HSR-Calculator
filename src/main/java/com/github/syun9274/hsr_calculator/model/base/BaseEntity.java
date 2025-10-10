@@ -23,4 +23,6 @@ public abstract class BaseEntity {
 
     private int baseDef;
 
+    private int spd;
+
 }

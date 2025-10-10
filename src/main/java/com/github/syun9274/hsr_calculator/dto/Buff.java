@@ -2,6 +2,7 @@ package com.github.syun9274.hsr_calculator.dto;
 
 import com.github.syun9274.hsr_calculator.model.enums.BuffType;
 import com.github.syun9274.hsr_calculator.model.enums.StatType;
+import com.github.syun9274.hsr_calculator.model.enums.Target;
 
 public record Buff(
         BuffType buffType,
@@ -10,22 +11,29 @@ public record Buff(
         Double perValue,
         Double increaseValue,
         Double maxValue,
-        Integer currentStackCount,
-        Integer maxStackCount
+        Integer maxStackCount,
+        Target buffTarget
 ) {
-    // 일반 버프 생성자
+    /**
+     * 행적 버프
+     */
     public Buff(BuffType buffType, Double buffValue) {
         this(buffType, buffValue,
                 null, null, null, null,
-                1, 1);
+                1, Target.SELF);
     }
 
-    // 일반 버프 생성자
-    public Buff(BuffType buffType, Double buffValue,
-                Integer currentStackCount, Integer maxStackCount) {
+    public Buff(BuffType buffType, Double buffValue, Target buffTarget) {
         this(buffType, buffValue,
                 null, null, null, null,
-                currentStackCount, maxStackCount);
+                1, buffTarget);
+    }
+
+    public Buff(BuffType buffType, Double buffValue,
+                Integer maxStackCount, Target buffTarget) {
+        this(buffType, buffValue,
+                null, null, null, null,
+                maxStackCount, buffTarget);
     }
 
     /**
@@ -38,11 +46,13 @@ public record Buff(
      * @param perValue       1000
      * @param increaseValue  0.8
      * @param maxValue       80
+     * @param buffTarget     SELF, ALLY, ENEMY
      */
-    public Buff(BuffType buffType,
-                StatType sourceStatType, Double perValue, Double increaseValue, Double maxValue) {
+    public Buff(BuffType buffType, Double buffValue,
+                StatType sourceStatType, Double perValue, Double increaseValue, Double maxValue,
+                Target buffTarget) {
         this(buffType, null,
                 sourceStatType, perValue, increaseValue, maxValue,
-                1, 1);
+                1, buffTarget);
     }
 }

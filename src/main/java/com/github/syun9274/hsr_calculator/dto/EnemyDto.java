@@ -13,6 +13,7 @@ public record EnemyDto(
         int level,
         int baseHp,
         int baseDef,
+        int spd,
         List<Element> weaknessElements,
         List<Element> resistElements,
         boolean isBroken
@@ -26,6 +27,7 @@ public record EnemyDto(
                 entity.getLevel(),
                 entity.getBaseHp(),
                 entity.getBaseDef(),
+                entity.getSpd(),
                 entity.getWeaknessElements(), // 약점 속성
                 entity.getResistElements(),   // 저항 속성 (존재하지 않을 수 있음)
                 false // default - false, 격파 안됨, 강인성 존재함
@@ -41,6 +43,7 @@ public record EnemyDto(
                 request.getLevel(),
                 request.getBaseHp(),
                 request.getBaseDef(),
+                request.getSpd(),
                 request.getWeaknessElements(),
                 request.getResistanceElements(),
                 request.isBroken()

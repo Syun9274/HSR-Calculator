@@ -62,7 +62,7 @@ class DamageCalculatorTest {
 
         // given - 4. 적 정보 (약점, 저항, 방어력)
         List<Element> enemyWeakness = Arrays.asList(Element.ICE, Element.WIND, Element.IMAGINARY);
-        List<Element> enemyResistance = Arrays.asList(Element.FIRE);
+        List<Element> enemyResistance = List.of(Element.FIRE);
         int enemyDefense = 940;
 
         // given - 5. 기타 아군 버프 목록
@@ -91,6 +91,7 @@ class DamageCalculatorTest {
                 .baseHp(1000)
                 .baseAtk(finalStats)
                 .baseDef(500)
+                .spd(90)
                 .element(characterElement)
                 .fatePath(characterFatePath)
                 .scalingAttribute(StatType.ATK)
@@ -105,6 +106,7 @@ class DamageCalculatorTest {
                 .level(74)
                 .baseHp(10000)
                 .baseDef(enemyDefense)
+                .spd(132)
                 .weaknessElements(enemyWeakness)
                 .resistElements(enemyResistance)
                 .isBroken(false)

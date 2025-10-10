@@ -26,6 +26,9 @@ public class ManualCharacterConfigRequest {
     @Min(value = 0, message = "기초 방어력은 0 이상이어야 합니다.")
     private int baseDef;
 
+    @Min(value = 1, message = "기초 속도 1 이상이어야 합니다.")
+    private int spd;
+
     @NotNull(message = "캐릭터 메인 계수 정보는 필수입니다. (HP, ATK, DEF)")
     private StatType scalingAttribute;
 

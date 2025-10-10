@@ -2,7 +2,7 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
 import com.github.syun9274.hsr_calculator.dto.Buff;
-import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.character.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.exception.CustomException;
 import com.github.syun9274.hsr_calculator.exception.ErrorCode;

@@ -2,7 +2,7 @@ package com.github.syun9274.hsr_calculator.service;
 
 import com.github.syun9274.hsr_calculator.calculator.DamageCalculator;
 import com.github.syun9274.hsr_calculator.dto.Buff;
-import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.character.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.DamageType;
 import lombok.RequiredArgsConstructor;

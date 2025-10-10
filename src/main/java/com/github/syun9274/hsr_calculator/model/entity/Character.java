@@ -1,5 +1,7 @@
 package com.github.syun9274.hsr_calculator.model.entity;
 
+import com.github.syun9274.hsr_calculator.converter.TraceListConverter;
+import com.github.syun9274.hsr_calculator.dto.Trace;
 import com.github.syun9274.hsr_calculator.model.base.BaseEntity;
 import com.github.syun9274.hsr_calculator.model.enums.Element;
 import com.github.syun9274.hsr_calculator.model.enums.FatePath;
@@ -42,7 +44,8 @@ public class Character extends BaseEntity {
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL)
     private Talent talent;
 
-    @OneToMany(mappedBy = "character", cascade = CascadeType.ALL)
+    @Convert(converter = TraceListConverter.class)
+    @Column(columnDefinition = "TEXT")
     private List<Trace> traces = new ArrayList<>();
 
     // 운명의 길이 `기억`인 캐릭터들만 해당

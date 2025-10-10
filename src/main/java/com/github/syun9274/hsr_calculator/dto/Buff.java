@@ -14,6 +14,13 @@ public record Buff(
         Integer maxStackCount
 ) {
     // 일반 버프 생성자
+    public Buff(BuffType buffType, Double buffValue) {
+        this(buffType, buffValue,
+                null, null, null, null,
+                1, 1);
+    }
+
+    // 일반 버프 생성자
     public Buff(BuffType buffType, Double buffValue,
                 Integer currentStackCount, Integer maxStackCount) {
         this(buffType, buffValue,
@@ -32,8 +39,8 @@ public record Buff(
      * @param increaseValue  0.8
      * @param maxValue       80
      */
-    public Buff(BuffType buffType, StatType sourceStatType,
-                Double perValue, Double increaseValue, Double maxValue) {
+    public Buff(BuffType buffType,
+                StatType sourceStatType, Double perValue, Double increaseValue, Double maxValue) {
         this(buffType, null,
                 sourceStatType, perValue, increaseValue, maxValue,
                 1, 1);

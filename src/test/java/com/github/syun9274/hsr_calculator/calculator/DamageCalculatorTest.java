@@ -2,8 +2,8 @@ package com.github.syun9274.hsr_calculator.calculator;
 
 import com.github.syun9274.hsr_calculator.calculator.component.*;
 import com.github.syun9274.hsr_calculator.dto.Buff;
-import com.github.syun9274.hsr_calculator.dto.character.BasicAttackDto;
-import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.DamageInfo;
+import com.github.syun9274.hsr_calculator.dto.character.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.model.enums.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -79,7 +79,7 @@ class DamageCalculatorTest {
         );
 
         // given - 캐릭터 일반 공격 DTO 생성
-        BasicAttackDto basicAttack = new BasicAttackDto(
+        DamageInfo basicAttack = new DamageInfo(
                 skillMultiplier,
                 extraMultiplier,
                 extraDamage);

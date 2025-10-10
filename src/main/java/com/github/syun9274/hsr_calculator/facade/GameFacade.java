@@ -1,7 +1,7 @@
 package com.github.syun9274.hsr_calculator.facade;
 
 import com.github.syun9274.hsr_calculator.dto.Buff;
-import com.github.syun9274.hsr_calculator.dto.CharacterDto;
+import com.github.syun9274.hsr_calculator.dto.character.CharacterDto;
 import com.github.syun9274.hsr_calculator.dto.EnemyDto;
 import com.github.syun9274.hsr_calculator.dto.request.BuffListRequest;
 import com.github.syun9274.hsr_calculator.dto.request.ManualCharacterConfigRequest;

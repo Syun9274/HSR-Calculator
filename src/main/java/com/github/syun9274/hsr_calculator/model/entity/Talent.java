@@ -2,6 +2,7 @@ package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.BuffListConverter;
 import com.github.syun9274.hsr_calculator.dto.Buff;
+import com.github.syun9274.hsr_calculator.dto.DamageInfo;
 import com.github.syun9274.hsr_calculator.model.base.BaseAbilityEntity;
 import com.github.syun9274.hsr_calculator.model.enums.EffectType;
 import jakarta.persistence.*;
@@ -22,11 +23,13 @@ public class Talent extends BaseAbilityEntity {
     private EffectType effectType;
 
     // 공격형 특성일 경우
-    private Double skillMultiplier;
-
-    private Double extraMultiplier;
-
-    private Integer extraDamage;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "skillMultiplier", column = @Column(name = "skill_multiplier", nullable = false)),
+            @AttributeOverride(name = "extraMultiplier", column = @Column(name = "extra_multiplier")),
+            @AttributeOverride(name = "extraDamage", column = @Column(name = "extra_damage"))
+    })
+    private DamageInfo damageInfo;
 
     // 특성 효과 (버프/패시브)
     @Convert(converter = BuffListConverter.class)

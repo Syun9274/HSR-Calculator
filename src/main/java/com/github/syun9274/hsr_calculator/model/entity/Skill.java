@@ -2,6 +2,7 @@ package com.github.syun9274.hsr_calculator.model.entity;
 
 import com.github.syun9274.hsr_calculator.converter.BuffListConverter;
 import com.github.syun9274.hsr_calculator.dto.Buff;
+import com.github.syun9274.hsr_calculator.dto.DamageInfo;
 import com.github.syun9274.hsr_calculator.model.base.BaseAbilityEntity;
 import com.github.syun9274.hsr_calculator.model.enums.EffectType;
 import jakarta.persistence.*;
@@ -22,11 +23,13 @@ public class Skill extends BaseAbilityEntity {
     private EffectType effectType;
 
     // 공격 타입일 경우
-    private Double skillMultiplier;
-
-    private Double extraMultiplier;
-
-    private Integer extraDamage;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "skillMultiplier", column = @Column(name = "skill_multiplier", nullable = false)),
+            @AttributeOverride(name = "extraMultiplier", column = @Column(name = "extra_multiplier")),
+            @AttributeOverride(name = "extraDamage", column = @Column(name = "extra_damage"))
+    })
+    private DamageInfo damageInfo;
 
     // 버프 타입일 경우
     @Convert(converter = BuffListConverter.class)
@@ -34,11 +37,13 @@ public class Skill extends BaseAbilityEntity {
     private List<Buff> buffs = new ArrayList<>();
 
     // 강화된 정보
-    private Double variantSkillMultiplier;
-
-    private Double variantExtraMultiplier;
-
-    private Integer variantExtraDamage;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "skillMultiplier", column = @Column(name = "variant_skill_multiplier")),
+            @AttributeOverride(name = "extraMultiplier", column = @Column(name = "variant_extra_multiplier")),
+            @AttributeOverride(name = "extraDamage", column = @Column(name = "variant_extra_damage"))
+    })
+    private DamageInfo variantDamageInfo;
 
     // 강화된 버프 정보
     @Convert(converter = BuffListConverter.class)

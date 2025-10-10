@@ -36,7 +36,7 @@ public enum BuffType {
     DEF_IGNORE("방어 무시"),
     RES_PEN("속성 저항 관통"),
 
-    // -- 적 버프 효과
+    // -- 적 디버프 효과
     DAMAGE_TAKEN_INCREASE("받는 피해 증가"),
     DEF_REDUCTION("방어력 감소"),
     RES_REDUCTION("속성 저항 감소"),
